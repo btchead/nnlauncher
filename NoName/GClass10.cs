@@ -7,11 +7,11 @@ public class GClass10
 {
 	// Token: 0x1700000A RID: 10
 	// (get) Token: 0x060000DF RID: 223 RVA: 0x000025C1 File Offset: 0x000007C1
-	public GEnum0 GEnum0_0
+	public ClientServerMessageFlags GEnum0_0
 	{
 		get
 		{
-			return (GEnum0)this.gstruct0_0.ushort_0;
+			return (ClientServerMessageFlags)this.gstruct0_0.ushort_0;
 		}
 	}
 

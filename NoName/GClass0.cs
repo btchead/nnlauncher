@@ -30,7 +30,7 @@ public class GClass0
 	{
 		this.action_0 = action_1;
 		string fileVersion = this.gclass14_0.Process_0.MainModule.FileVersionInfo.FileVersion;
-		this.ulong_0 = (ulong)this.gclass14_0.method_16(16384, GEnum3.PAGE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L).ToInt64();
+		this.ulong_0 = (ulong)this.gclass14_0.method_16(16384, MemoryProtectionFlags.PAGE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L).ToInt64();
 		this.gclass2_0.method_8(fileVersion, (ulong)this.gclass14_0.method_14(), this.ulong_0, string_0, Directory.GetCurrentDirectory() + "\\", new Action(this.method_2));
 	}
 

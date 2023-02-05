@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class GClass9
 {
 	// Token: 0x060000D5 RID: 213 RVA: 0x000025A7 File Offset: 0x000007A7
-	public static void smethod_0(GEnum0 genum0_0, GClass9.GDelegate0 gdelegate0_0)
+	public static void smethod_0(ClientServerMessageFlags genum0_0, GClass9.GDelegate0 gdelegate0_0)
 	{
 		GClass9.dictionary_0[genum0_0] = gdelegate0_0;
 	}
 
 	// Token: 0x060000D6 RID: 214 RVA: 0x00004800 File Offset: 0x00002A00
-	public static bool smethod_1(GClass10 gclass10_0, GClass12 gclass12_0, GEnum0 genum0_0)
+	public static bool smethod_1(GClass10 gclass10_0, GClass12 gclass12_0, ClientServerMessageFlags genum0_0)
 	{
 		try
 		{
@@ -41,7 +41,7 @@ public class GClass9
 	}
 
 	// Token: 0x04000096 RID: 150
-	public static Dictionary<GEnum0, GClass9.GDelegate0> dictionary_0 = new Dictionary<GEnum0, GClass9.GDelegate0>();
+	public static Dictionary<ClientServerMessageFlags, GClass9.GDelegate0> dictionary_0 = new Dictionary<ClientServerMessageFlags, GClass9.GDelegate0>();
 
 	// Token: 0x02000015 RID: 21
 	// (Invoke) Token: 0x060000DC RID: 220

@@ -46,11 +46,11 @@ public static class GClass13
 
 	// Token: 0x06000165 RID: 357
 	[DllImport("kernel32.dll")]
-	public static extern bool VirtualProtectEx(IntPtr intptr_0, IntPtr intptr_1, int int_0, GEnum3 genum3_0, out GEnum3 genum3_1);
+	public static extern bool VirtualProtectEx(IntPtr intptr_0, IntPtr intptr_1, int int_0, MemoryProtectionFlags genum3_0, out MemoryProtectionFlags genum3_1);
 
 	// Token: 0x06000166 RID: 358
 	[DllImport("kernel32.dll", ExactSpelling = true, SetLastError = true)]
-	public static extern IntPtr VirtualAllocEx(IntPtr intptr_0, IntPtr intptr_1, int int_0, int int_1, GEnum3 genum3_0);
+	public static extern IntPtr VirtualAllocEx(IntPtr intptr_0, IntPtr intptr_1, int int_0, int int_1, MemoryProtectionFlags genum3_0);
 
 	// Token: 0x06000167 RID: 359
 	[DllImport("kernel32.dll")]

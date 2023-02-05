@@ -113,7 +113,7 @@ public class GClass2
 		{
 			return false;
 		}
-		GClass11 gclass = new GClass11(GEnum0.CMSG_KEY);
+		GClass11 gclass = new GClass11(ClientServerMessageFlags.CMSG_KEY);
 		gclass.method_6(1);
 		this.gclass12_0.method_3(gclass, false, false);
 		return true;
@@ -128,7 +128,7 @@ public class GClass2
 	// Token: 0x06000075 RID: 117 RVA: 0x000036CC File Offset: 0x000018CC
 	public bool method_3(byte[] byte_0)
 	{
-		GClass11 gclass = new GClass11(GEnum0.CMSG_WARDEN_UPLOAD);
+		GClass11 gclass = new GClass11(ClientServerMessageFlags.CMSG_WARDEN_UPLOAD);
 		gclass.method_4(byte_0.Length);
 		gclass.method_15(byte_0);
 		this.gclass12_0.method_3(gclass, false, false);
@@ -138,7 +138,7 @@ public class GClass2
 	// Token: 0x06000076 RID: 118 RVA: 0x00003700 File Offset: 0x00001900
 	public bool method_4(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0, string string_1)
 	{
-		GClass11 gclass = new GClass11(GEnum0.CMSG_REQUEST_NEEDLE_PAYLOAD);
+		GClass11 gclass = new GClass11(ClientServerMessageFlags.CMSG_REQUEST_NEEDLE_PAYLOAD);
 		gclass.method_9(ulong_0);
 		gclass.method_2((sbyte)long_0.Length);
 		for (int i = 0; i < long_0.Length; i++)
@@ -158,7 +158,7 @@ public class GClass2
 	// Token: 0x06000077 RID: 119 RVA: 0x00003794 File Offset: 0x00001994
 	public bool method_5(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0)
 	{
-		GClass11 gclass = new GClass11(GEnum0.CMSG_REQUEST_HOOK_PAYLOAD);
+		GClass11 gclass = new GClass11(ClientServerMessageFlags.CMSG_REQUEST_HOOK_PAYLOAD);
 		gclass.method_9(ulong_0);
 		gclass.method_2((sbyte)long_0.Length);
 		for (int i = 0; i < long_0.Length; i++)

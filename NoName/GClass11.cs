@@ -28,7 +28,7 @@ public class GClass11 : BinaryWriter
 	}
 
 	// Token: 0x06000113 RID: 275 RVA: 0x00002769 File Offset: 0x00000969
-	public GClass11(GEnum0 genum0_1)
+	public GClass11(ClientServerMessageFlags genum0_1)
 		: base(new MemoryStream())
 	{
 		this.genum0_0 = genum0_1;
@@ -333,5 +333,5 @@ public class GClass11 : BinaryWriter
 	};
 
 	// Token: 0x0400009C RID: 156
-	public GEnum0 genum0_0;
+	public ClientServerMessageFlags genum0_0;
 }

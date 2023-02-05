@@ -34,7 +34,7 @@ public class GClass5
 		@class.gclass5_0 = this;
 		List<byte> list = new List<byte>();
 		list.AddRange(this.gclass2_0.Byte_0);
-		@class.ulong_0 = (ulong)(long)this.gclass14_0.method_16(list.Count, GEnum3.PAGE_EXECUTE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
+		@class.ulong_0 = (ulong)(long)this.gclass14_0.method_16(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
 		this.gclass14_0.method_10((IntPtr)((long)@class.ulong_0), list.ToArray());
 		@class.ulong_1 = (ulong)this.gclass14_0.method_14();
 		@class.long_0 = 0L;
@@ -49,7 +49,7 @@ public class GClass5
 			int num = i;
 			byte_2[num] ^= byte_1[i % 16];
 		}
-		ulong num2 = (ulong)(long)this.gclass14_0.method_16(byte_2.Length, GEnum3.PAGE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
+		ulong num2 = (ulong)(long)this.gclass14_0.method_16(byte_2.Length, MemoryProtectionFlags.PAGE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
 		this.gclass14_0.method_10((IntPtr)((long)num2), byte_2);
 	}
 
@@ -58,7 +58,7 @@ public class GClass5
 	{
 		List<byte> list = new List<byte>();
 		list.AddRange(GClass5.byte_0);
-		ulong num = (ulong)(long)this.gclass14_0.method_16(GClass5.byte_0.Length + string_0.Length + 30, GEnum3.PAGE_EXECUTE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
+		ulong num = (ulong)(long)this.gclass14_0.method_16(GClass5.byte_0.Length + string_0.Length + 30, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
 		byte[] bytes = BitConverter.GetBytes(num + (ulong)((long)list.Count));
 		for (int i = 0; i < bytes.Length; i++)
 		{

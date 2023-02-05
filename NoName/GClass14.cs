@@ -171,7 +171,7 @@ public class GClass14
 	}
 
 	// Token: 0x06000182 RID: 386 RVA: 0x00005070 File Offset: 0x00003270
-	public IntPtr method_16(int int_0, GEnum3 genum3_0, GClass14.GEnum4 genum4_0 = GClass14.GEnum4.MEM_COMMIT, long long_1 = -1L)
+	public IntPtr method_16(int int_0, MemoryProtectionFlags genum3_0, GClass14.GEnum4 genum4_0 = GClass14.GEnum4.MEM_COMMIT, long long_1 = -1L)
 	{
 		IntPtr intPtr = IntPtr.Zero;
 		if (long_1 != -1L)
