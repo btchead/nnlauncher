@@ -1,7 +1,7 @@
 ﻿using System;
 
 // Token: 0x0200001C RID: 28
-public enum GEnum3 : uint
+public enum MemoryProtectionFlags : uint
 {
 	// Token: 0x040000C6 RID: 198
 	PAGE_EXECUTE = 16U,
