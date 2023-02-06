@@ -8,7 +8,7 @@ using System.Threading;
 public class GClass3
 {
 	// Token: 0x0600007C RID: 124 RVA: 0x00002499 File Offset: 0x00000699
-	public GClass3(GClass14 gclass14_1, GClass2 gclass2_1)
+	public GClass3(GClass14 gclass14_1, MessageHandler gclass2_1)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.gclass2_0 = gclass2_1;
@@ -38,7 +38,7 @@ public class GClass3
 				}
 				IntPtr intPtr = (IntPtr)((long)num);
 				GStruct1 gstruct;
-				num3 = GClass13.VirtualQueryEx(this.gclass14_0.IntPtr_0, intPtr, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
+				num3 = KernelAPI.VirtualQueryEx(this.gclass14_0.IntPtr_0, intPtr, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
 				num += gstruct.ulong_2;
 				if (num == 0UL)
 				{
@@ -51,10 +51,10 @@ public class GClass3
 						Console.WriteLine("Possible warden module detected, exiting!", ConsoleColor.Yellow);
 						byte[] array = new byte[gstruct.ulong_2];
 						IntPtr intPtr2;
-						GClass13.ReadProcessMemory(this.gclass14_0.IntPtr_0, intPtr, array, array.Length, out intPtr2);
+						KernelAPI.ReadProcessMemory(this.gclass14_0.IntPtr_0, intPtr, array, array.Length, out intPtr2);
 						if ((long)intPtr2 == (long)gstruct.ulong_2)
 						{
-							this.gclass2_0.method_3(array);
+							this.gclass2_0.IsClientWardenUploadMsg_Sent(array);
 						}
 						Thread.Sleep(1500);
 						Process.GetCurrentProcess().Kill();
@@ -142,7 +142,7 @@ public class GClass3
 	private GClass14 gclass14_0;
 
 	// Token: 0x0400001F RID: 31
-	private GClass2 gclass2_0;
+	private MessageHandler gclass2_0;
 
 	// Token: 0x04000020 RID: 32
 	private bool bool_0 = true;

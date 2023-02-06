@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 // Token: 0x0200001A RID: 26
-public static class GClass13
+public static class KernelAPI
 {
 	// Token: 0x0600015B RID: 347
 	[DllImport("Kernel32.dll")]

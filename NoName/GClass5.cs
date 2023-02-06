@@ -10,7 +10,7 @@ using System.Threading;
 public class GClass5
 {
 	// Token: 0x06000099 RID: 153 RVA: 0x00002508 File Offset: 0x00000708
-	public GClass5(GClass14 gclass14_1, GClass2 gclass2_1)
+	public GClass5(GClass14 gclass14_1, MessageHandler gclass2_1)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.gclass2_0 = gclass2_1;
@@ -34,7 +34,7 @@ public class GClass5
 		@class.gclass5_0 = this;
 		List<byte> list = new List<byte>();
 		list.AddRange(this.gclass2_0.Byte_0);
-		@class.ulong_0 = (ulong)(long)this.gclass14_0.method_16(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
+		@class.ulong_0 = (ulong)(long)this.gclass14_0.method_16(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.MemoryAllocationFlags.MEM_COMMIT, -1L);
 		this.gclass14_0.method_10((IntPtr)((long)@class.ulong_0), list.ToArray());
 		@class.ulong_1 = (ulong)this.gclass14_0.method_14();
 		@class.long_0 = 0L;
@@ -49,7 +49,7 @@ public class GClass5
 			int num = i;
 			byte_2[num] ^= byte_1[i % 16];
 		}
-		ulong num2 = (ulong)(long)this.gclass14_0.method_16(byte_2.Length, MemoryProtectionFlags.PAGE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
+		ulong num2 = (ulong)(long)this.gclass14_0.method_16(byte_2.Length, MemoryProtectionFlags.PAGE_READWRITE, GClass14.MemoryAllocationFlags.MEM_COMMIT, -1L);
 		this.gclass14_0.method_10((IntPtr)((long)num2), byte_2);
 	}
 
@@ -58,7 +58,7 @@ public class GClass5
 	{
 		List<byte> list = new List<byte>();
 		list.AddRange(GClass5.byte_0);
-		ulong num = (ulong)(long)this.gclass14_0.method_16(GClass5.byte_0.Length + string_0.Length + 30, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.GEnum4.MEM_COMMIT, -1L);
+		ulong num = (ulong)(long)this.gclass14_0.method_16(GClass5.byte_0.Length + string_0.Length + 30, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.MemoryAllocationFlags.MEM_COMMIT, -1L);
 		byte[] bytes = BitConverter.GetBytes(num + (ulong)((long)list.Count));
 		for (int i = 0; i < bytes.Length; i++)
 		{
@@ -96,17 +96,17 @@ public class GClass5
 			{
 				break;
 			}
-			GClass13.NtResumeProcess(this.gclass14_0.IntPtr_0);
+			KernelAPI.NtResumeProcess(this.gclass14_0.IntPtr_0);
 			Console.Write(".");
 			Thread.Sleep(50);
-			GClass13.NtSuspendProcess(this.gclass14_0.IntPtr_0);
+			KernelAPI.NtSuspendProcess(this.gclass14_0.IntPtr_0);
 		}
 		long num = array[0] & -4096L;
 		byte[] array2 = this.gclass14_0.method_4(num, 4096);
 		if (array2 != null)
 		{
 			this.gclass2_0.Action_1 = action_0;
-			this.gclass2_0.method_5(this.gclass14_0.String_0, array, array2, (ulong)this.gclass14_0.method_14());
+			this.gclass2_0.IsClientRequestHookPayloadMsg_Sent(this.gclass14_0.String_0, array, array2, (ulong)this.gclass14_0.method_14());
 			return num;
 		}
 		Console.WriteLine("Criticale error!");
@@ -118,7 +118,7 @@ public class GClass5
 	{
 		int num = 0;
 		GStruct1 gstruct;
-		GClass13.VirtualQueryEx(this.gclass14_0.IntPtr_0, this.gclass14_0.Process_0.MainModule.BaseAddress, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
+		KernelAPI.VirtualQueryEx(this.gclass14_0.IntPtr_0, this.gclass14_0.Process_0.MainModule.BaseAddress, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
 		byte[] array = this.gclass14_0.method_4((long)gstruct.ulong_0, (int)gstruct.ulong_2);
 		if (array == null)
 		{
@@ -161,7 +161,7 @@ public class GClass5
 		if (long_0 <= (long)this.gclass14_0.Process_0.MainModule.BaseAddress || long_0 >= (long)this.gclass14_0.Process_0.MainModule.BaseAddress + (long)this.gclass14_0.Process_0.MainModule.ModuleMemorySize)
 		{
 			GStruct1 gstruct;
-			GClass13.VirtualQueryEx(this.gclass14_0.IntPtr_0, (IntPtr)long_0, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
+			KernelAPI.VirtualQueryEx(this.gclass14_0.IntPtr_0, (IntPtr)long_0, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
 			return gstruct.ulong_2 != 0UL && gstruct.uint_2 != 1U && (gstruct.uint_0 & 64U) > 0U;
 		}
 		return false;
@@ -279,7 +279,7 @@ public class GClass5
 	private GClass14 gclass14_0;
 
 	// Token: 0x04000026 RID: 38
-	private GClass2 gclass2_0;
+	private MessageHandler gclass2_0;
 
 	// Token: 0x04000027 RID: 39
 	private static byte[] byte_0 = new byte[]

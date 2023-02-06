@@ -9,7 +9,7 @@ using System.Threading;
 public class GClass4
 {
 	// Token: 0x06000089 RID: 137 RVA: 0x000024E0 File Offset: 0x000006E0
-	public GClass4(GClass14 gclass14_1, GClass2 gclass2_1)
+	public GClass4(GClass14 gclass14_1, MessageHandler gclass2_1)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.gclass2_0 = gclass2_1;
@@ -24,7 +24,7 @@ public class GClass4
 		@class.long_0 = array[0] & -4096L;
 		byte[] array2 = this.gclass14_0.method_4(@class.long_0, 4096);
 		this.gclass2_0.Action_2 = new Action<byte[], int>(@class.method_0);
-		this.gclass2_0.method_4(this.gclass14_0.String_0, array, array2, (ulong)this.gclass14_0.method_14(), string_0);
+		this.gclass2_0.IsClientRequestNeedlePayloadMsg_Sent(this.gclass14_0.String_0, array, array2, (ulong)this.gclass14_0.method_14(), string_0);
 	}
 
 	// Token: 0x0600008B RID: 139 RVA: 0x00003A38 File Offset: 0x00001C38
@@ -32,7 +32,7 @@ public class GClass4
 	{
 		int num = 0;
 		GStruct1 gstruct;
-		GClass13.VirtualQueryEx(this.gclass14_0.IntPtr_0, this.gclass14_0.Process_0.MainModule.BaseAddress, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
+		KernelAPI.VirtualQueryEx(this.gclass14_0.IntPtr_0, this.gclass14_0.Process_0.MainModule.BaseAddress, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
 		byte[] array = this.gclass14_0.method_4((long)gstruct.ulong_0, (int)gstruct.ulong_2);
 		if (array != null)
 		{
@@ -80,7 +80,7 @@ public class GClass4
 		if (long_0 <= (long)this.gclass14_0.Process_0.MainModule.BaseAddress || long_0 >= (long)this.gclass14_0.Process_0.MainModule.BaseAddress + (long)this.gclass14_0.Process_0.MainModule.ModuleMemorySize)
 		{
 			GStruct1 gstruct;
-			GClass13.VirtualQueryEx(this.gclass14_0.IntPtr_0, (IntPtr)long_0, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
+			KernelAPI.VirtualQueryEx(this.gclass14_0.IntPtr_0, (IntPtr)long_0, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
 			return gstruct.ulong_2 != 0UL && gstruct.uint_2 != 1U && (gstruct.uint_0 & 64U) > 0U;
 		}
 		return false;
@@ -144,7 +144,7 @@ public class GClass4
 	private GClass14 gclass14_0;
 
 	// Token: 0x04000022 RID: 34
-	private GClass2 gclass2_0;
+	private MessageHandler gclass2_0;
 
 	// Token: 0x0200000C RID: 12
 	[CompilerGenerated]

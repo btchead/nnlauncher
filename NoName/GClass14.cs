@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 // Token: 0x0200001E RID: 30
@@ -53,27 +52,27 @@ public class GClass14
 		{
 			array = new byte[] { 144, 72, byte.MaxValue, 194 };
 		}
-		IntPtr intPtr = GClass13.GetProcAddress(GClass13.GetModuleHandle("KERNEL32"), "BaseThreadInitThunk") + 4;
+		IntPtr intPtr = KernelAPI.GetProcAddress(KernelAPI.GetModuleHandle("KERNEL32"), "BaseThreadInitThunk") + 4;
 		this.method_10(intPtr, array);
 	}
 
 	// Token: 0x06000173 RID: 371 RVA: 0x000029E5 File Offset: 0x00000BE5
 	public IntPtr method_1(int int_0)
 	{
-		return GClass13.OpenProcess(int_0, false, this.Process_0.Id);
+		return KernelAPI.OpenProcess(int_0, false, this.Process_0.Id);
 	}
 
 	// Token: 0x06000174 RID: 372 RVA: 0x000029F9 File Offset: 0x00000BF9
 	public bool method_2(IntPtr intptr_2)
 	{
-		return GClass13.CloseHandle(intptr_2);
+		return KernelAPI.CloseHandle(intptr_2);
 	}
 
 	// Token: 0x06000175 RID: 373 RVA: 0x00004F78 File Offset: 0x00003178
 	public IntPtr method_3(IntPtr intptr_2)
 	{
 		IntPtr intPtr;
-		return GClass13.CreateRemoteThread(this.IntPtr_0, IntPtr.Zero, 0U, intptr_2, IntPtr.Zero, 0, out intPtr);
+		return KernelAPI.CreateRemoteThread(this.IntPtr_0, IntPtr.Zero, 0U, intptr_2, IntPtr.Zero, 0, out intPtr);
 	}
 
 	// Token: 0x06000176 RID: 374 RVA: 0x00004FA0 File Offset: 0x000031A0
@@ -85,7 +84,7 @@ public class GClass14
 		}
 		IntPtr zero = IntPtr.Zero;
 		byte[] array = new byte[int_0];
-		GClass13.ReadProcessMemory(this.IntPtr_0, (IntPtr)long_1, array, array.Length, out zero);
+		KernelAPI.ReadProcessMemory(this.IntPtr_0, (IntPtr)long_1, array, array.Length, out zero);
 		if (zero.ToInt32() != int_0)
 		{
 			return null;
@@ -136,7 +135,7 @@ public class GClass14
 			return false;
 		}
 		IntPtr zero = IntPtr.Zero;
-		GClass13.WriteProcessMemory(this.IntPtr_0, intptr_2, byte_0, byte_0.Length, out zero);
+		KernelAPI.WriteProcessMemory(this.IntPtr_0, intptr_2, byte_0, byte_0.Length, out zero);
 		return zero.ToInt32() == byte_0.Length;
 	}
 
@@ -167,128 +166,22 @@ public class GClass14
 	// Token: 0x06000181 RID: 385 RVA: 0x00002A88 File Offset: 0x00000C88
 	public IntPtr method_15(IntPtr intptr_2, string string_0)
 	{
-		return GClass13.GetProcAddress(intptr_2, string_0);
+		return KernelAPI.GetProcAddress(intptr_2, string_0);
 	}
 
 	// Token: 0x06000182 RID: 386 RVA: 0x00005070 File Offset: 0x00003270
-	public IntPtr method_16(int int_0, MemoryProtectionFlags genum3_0, GClass14.GEnum4 genum4_0 = GClass14.GEnum4.MEM_COMMIT, long long_1 = -1L)
+	public IntPtr method_16(int int_0, MemoryProtectionFlags genum3_0, MemoryAllocationFlags genum4_0 = MemoryAllocationFlags.MEM_COMMIT, long long_1 = -1L)
 	{
 		IntPtr intPtr = IntPtr.Zero;
 		if (long_1 != -1L)
 		{
 			intPtr = (IntPtr)long_1;
 		}
-		return GClass13.VirtualAllocEx(this.IntPtr_0, intPtr, int_0, (int)genum4_0, genum3_0);
+		return KernelAPI.VirtualAllocEx(this.IntPtr_0, intPtr, int_0, (int)genum4_0, genum3_0);
 	}
-
-	// Token: 0x06000183 RID: 387 RVA: 0x00002195 File Offset: 0x00000395
-	static ProcessModule smethod_0(Process process_1)
-	{
-		return process_1.MainModule;
-	}
-
-	// Token: 0x06000184 RID: 388 RVA: 0x0000219D File Offset: 0x0000039D
-	static FileVersionInfo smethod_1(ProcessModule processModule_0)
-	{
-		return processModule_0.FileVersionInfo;
-	}
-
-	// Token: 0x06000185 RID: 389 RVA: 0x000021A5 File Offset: 0x000003A5
-	static string smethod_2(FileVersionInfo fileVersionInfo_0)
-	{
-		return fileVersionInfo_0.FileVersion;
-	}
-
-	// Token: 0x06000186 RID: 390 RVA: 0x00002568 File Offset: 0x00000768
-	static void smethod_3(Array array_0, RuntimeFieldHandle runtimeFieldHandle_0)
-	{
-		RuntimeHelpers.InitializeArray(array_0, runtimeFieldHandle_0);
-	}
-
-	// Token: 0x06000187 RID: 391 RVA: 0x0000234C File Offset: 0x0000054C
-	static int smethod_4(Process process_1)
-	{
-		return process_1.Id;
-	}
-
-	// Token: 0x06000188 RID: 392 RVA: 0x0000231C File Offset: 0x0000051C
-	static bool smethod_5(Process process_1)
-	{
-		return process_1.HasExited;
-	}
-
-	// Token: 0x06000189 RID: 393 RVA: 0x000024F6 File Offset: 0x000006F6
-	static long smethod_6(byte[] byte_0, int int_0)
-	{
-		return BitConverter.ToInt64(byte_0, int_0);
-	}
-
-	// Token: 0x0600018A RID: 394 RVA: 0x00002A91 File Offset: 0x00000C91
-	static float smethod_7(byte[] byte_0, int int_0)
-	{
-		return BitConverter.ToSingle(byte_0, int_0);
-	}
-
-	// Token: 0x0600018B RID: 395 RVA: 0x00002718 File Offset: 0x00000918
-	static Encoding smethod_8()
-	{
-		return Encoding.UTF8;
-	}
-
-	// Token: 0x0600018C RID: 396 RVA: 0x0000271F File Offset: 0x0000091F
-	static string smethod_9(Encoding encoding_0, byte[] byte_0)
-	{
-		return encoding_0.GetString(byte_0);
-	}
-
-	// Token: 0x0600018D RID: 397 RVA: 0x00002737 File Offset: 0x00000937
-	static string[] smethod_10(string string_0, char[] char_0)
-	{
-		return string_0.Split(char_0);
-	}
-
-	// Token: 0x0600018E RID: 398 RVA: 0x00002A9A File Offset: 0x00000C9A
-	static byte[] smethod_11(long long_1)
-	{
-		return BitConverter.GetBytes(long_1);
-	}
-
-	// Token: 0x0600018F RID: 399 RVA: 0x00002AA2 File Offset: 0x00000CA2
-	static byte[] smethod_12(int int_0)
-	{
-		return BitConverter.GetBytes(int_0);
-	}
-
-	// Token: 0x06000190 RID: 400 RVA: 0x00002557 File Offset: 0x00000757
-	static byte[] smethod_13(Encoding encoding_0, string string_0)
-	{
-		return encoding_0.GetBytes(string_0);
-	}
-
-	// Token: 0x06000191 RID: 401 RVA: 0x000021BD File Offset: 0x000003BD
-	static IntPtr smethod_14(ProcessModule processModule_0)
-	{
-		return processModule_0.BaseAddress;
-	}
-
-	// Token: 0x040000DA RID: 218
-	[CompilerGenerated]
-	private Process process_0;
-
-	// Token: 0x040000DB RID: 219
-	[CompilerGenerated]
-	private IntPtr intptr_0;
-
-	// Token: 0x040000DC RID: 220
-	[CompilerGenerated]
-	private IntPtr intptr_1;
-
-	// Token: 0x040000DD RID: 221
-	[CompilerGenerated]
-	private long[] long_0;
 
 	// Token: 0x0200001F RID: 31
-	public enum GEnum4
+	public enum MemoryAllocationFlags
 	{
 		// Token: 0x040000DF RID: 223
 		MEM_COMMIT = 4096,
