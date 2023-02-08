@@ -80,7 +80,6 @@
     <Compile Include="Class11.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="GClass0.cs" />
-    <Compile Include="GClass1.cs" />
     <Compile Include="GClass10.cs" />
     <Compile Include="MessageMemoryStream.cs" />
     <Compile Include="Server.cs" />
