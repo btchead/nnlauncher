@@ -153,9 +153,6 @@ public class GClass0
     // Token: 0x04000003 RID: 3
     private GClass3 gclass3_0;
 
-    // Token: 0x04000004 RID: 4
-    private GClass1 gclass1_0;
-
     // Token: 0x04000005 RID: 5
     private MessageHandler messageHandler;
 
