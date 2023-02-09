@@ -32,7 +32,7 @@ internal class Application
             {
                 messageHandler.WaitForWorldOfWarcraft = new Action<object>(processUtils.WaitForWorldOfWarcraft);
                 processUtils.hasResumed = true;
-                messageHandler.method_2(licenseKey, GetMachineIdentifier());
+                messageHandler.WriteClientAuthMessageToServer(licenseKey, GetMachineIdentifier());
                 Thread.Sleep(-1);
                 return;
             }
