@@ -23,14 +23,14 @@ public class Server
     }
 
     // Token: 0x06000140 RID: 320 RVA: 0x00002861 File Offset: 0x00000A61
-    public Server(Action action_9 = null)
+    public Server(Action aConnectionLossRoutine = null)
     {
-        if (!Server.bool_0)
+        if (!IsMessageDelegatesSetup)
         {
-            GClass8.smethod_0();
-            Server.bool_0 = true;
+            MessageFlagDelegateMapper.SetupMessageDelegates();
+            IsMessageDelegatesSetup = true;
         }
-        this.pConnectionLossRoutine = action_9;
+        this.pConnectionLossRoutine = aConnectionLossRoutine;
     }
 
     // Token: 0x06000141 RID: 321 RVA: 0x00004BEC File Offset: 0x00002DEC
@@ -42,10 +42,10 @@ public class Server
             Console.WriteLine("Connecting...");
             TcpClient tcpClient = new TcpClient("5.161.63.123", 9050);
             this.openedTcpStream = tcpClient.GetStream();
-            this.byte_4 = new byte[0];
-            this.byte_3 = new byte[4];
-            this.int_0 = 4;
-            new Thread(new ThreadStart(this.method_1)).Start();
+            this.buffer_2 = new byte[0];
+            this.buffer = new byte[4];
+            this.size = 4;
+            new Thread(new ThreadStart(StreamReadLoopThread)).Start();
             return true;
         }
         catch (Exception ex)
@@ -63,18 +63,18 @@ public class Server
     }
 
     // Token: 0x06000142 RID: 322 RVA: 0x0000289A File Offset: 0x00000A9A
-    public void method_1()
+    public void StreamReadLoopThread()
     {
-        this.openedTcpStream.BeginRead(this.byte_3, 0, this.int_0, new AsyncCallback(this.method_6), null);
+        openedTcpStream.BeginRead(buffer, 0, size, new AsyncCallback(method_6), null);
     }
 
     // Token: 0x06000143 RID: 323 RVA: 0x00004CC8 File Offset: 0x00002EC8
     public bool method_2()
     {
-        this.int_1 = (BitConverter.ToInt32(this.byte_3, 0) >> 8) - 4;
-        if (this.int_1 > 0 && this.int_1 <= 16777215)
+        this.size_2 = (BitConverter.ToInt32(this.buffer, 0) >> 8) - 4;
+        if (this.size_2 > 0 && this.size_2 <= 16777215)
         {
-            this.byte_4 = new byte[this.int_1];
+            this.buffer_2 = new byte[this.size_2];
             return true;
         }
         return false;
@@ -116,23 +116,23 @@ public class Server
 
     // Token: 0x06000147 RID: 327 RVA: 0x00004D74 File Offset: 0x00002F74
     [CompilerGenerated]
-    private void method_6(IAsyncResult iasyncResult_0)
+    private void method_6(IAsyncResult asyncResult)
     {
         try
         {
-            int num = this.openedTcpStream.EndRead(iasyncResult_0);
-            if (num < 1)
+            int bytesRead = this.openedTcpStream.EndRead(asyncResult);
+            if (bytesRead < 1)
             {
-                this.CloseConnection();
+                CloseConnection();
             }
-            else if (this.int_0 > 0)
+            else if (this.size > 0)
             {
-                this.int_0 -= num;
-                if (this.int_0 == 0)
+                this.size -= bytesRead;
+                if (this.size == 0)
                 {
                     if (this.method_2())
                     {
-                        this.openedTcpStream.BeginRead(this.byte_4, 0, this.int_1, new AsyncCallback(this.method_6), null);
+                        this.openedTcpStream.BeginRead(this.buffer_2, 0, this.size_2, new AsyncCallback(this.method_6), null);
                     }
                     else
                     {
@@ -141,24 +141,24 @@ public class Server
                 }
                 else
                 {
-                    this.openedTcpStream.BeginRead(this.byte_3, this.byte_3.Length - this.int_0, this.int_0, new AsyncCallback(this.method_6), null);
+                    this.openedTcpStream.BeginRead(this.buffer, this.buffer.Length - this.size, this.size, new AsyncCallback(this.method_6), null);
                 }
             }
             else
             {
-                this.int_1 -= num;
-                if (this.int_1 != 0)
+                this.size_2 -= bytesRead;
+                if (this.size_2 != 0)
                 {
-                    this.openedTcpStream.BeginRead(this.byte_4, this.byte_4.Length - this.int_1, this.int_1, new AsyncCallback(this.method_6), null);
+                    this.openedTcpStream.BeginRead(this.buffer_2, this.buffer_2.Length - this.size_2, this.size_2, new AsyncCallback(this.method_6), null);
                 }
                 else
                 {
-                    GClass10 gclass = new GClass10(this.byte_3, this.byte_4, "test", this.byte_0);
+                    GClass10 gclass = new GClass10(this.buffer, this.buffer_2, "test", this.byte_0);
                     GClass9.smethod_1(gclass, this, gclass.GEnum0_0);
-                    this.byte_4 = new byte[0];
-                    this.byte_3 = new byte[4];
-                    this.int_0 = 4;
-                    this.openedTcpStream.BeginRead(this.byte_3, 0, this.int_0, new AsyncCallback(this.method_6), null);
+                    this.buffer_2 = new byte[0];
+                    this.buffer = new byte[4];
+                    this.size = 4;
+                    this.openedTcpStream.BeginRead(this.buffer, 0, this.size, new AsyncCallback(this.method_6), null);
                 }
             }
         }
@@ -196,16 +196,16 @@ public class Server
     };
 
     // Token: 0x040000A3 RID: 163
-    public int int_0;
+    public int size;
 
     // Token: 0x040000A4 RID: 164
-    public byte[] byte_3;
+    public byte[] buffer;
 
     // Token: 0x040000A5 RID: 165
-    public int int_1;
+    public int size_2;
 
     // Token: 0x040000A6 RID: 166
-    public byte[] byte_4;
+    public byte[] buffer_2;
 
     // Token: 0x040000A7 RID: 167
     private Action pConnectionLossRoutine;
@@ -223,7 +223,7 @@ public class Server
     public byte[] byte_6;
 
     // Token: 0x040000AC RID: 172
-    private static bool bool_0;
+    private static bool IsMessageDelegatesSetup;
 
     // Token: 0x040000AD RID: 173
     public uint uint_0;
@@ -256,7 +256,7 @@ public class Server
     public Action action_6;
 
     // Token: 0x040000B7 RID: 183
-    public Action<object> action_7;
+    public Action<object> WaitForWorldOfWarcraft;
 
     // Token: 0x040000B8 RID: 184
     public Action<byte[], byte[]> action_8;

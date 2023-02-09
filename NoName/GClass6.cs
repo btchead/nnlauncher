@@ -16,7 +16,7 @@ public class GClass6
 	{
 		gclass12_0.ushort_1 = gclass10_0.method_5();
 		gclass12_0.byte_7 = gclass10_0.method_13(16);
-		new Thread(new ParameterizedThreadStart(gclass12_0.action_7.Invoke)).Start(gclass12_0.ushort_1);
+		new Thread(new ParameterizedThreadStart(gclass12_0.WaitForWorldOfWarcraft.Invoke)).Start(gclass12_0.ushort_1);
 	}
 
 	// Token: 0x060000B9 RID: 185 RVA: 0x0000436C File Offset: 0x0000256C

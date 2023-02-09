@@ -77,21 +77,20 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class11.cs" />
     <Compile Include="Application.cs" />
-    <Compile Include="GClass0.cs" />
+    <Compile Include="WardenController.cs" />
     <Compile Include="GClass10.cs" />
     <Compile Include="MessageMemoryStream.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="KernelAPI.cs" />
     <Compile Include="GClass14.cs" />
     <Compile Include="MessageHandler.cs" />
-    <Compile Include="GClass3.cs" />
+    <Compile Include="WardenScanner.cs" />
     <Compile Include="GClass4.cs" />
     <Compile Include="GClass5.cs" />
     <Compile Include="GClass6.cs" />
     <Compile Include="MessageFactory.cs" />
-    <Compile Include="GClass8.cs" />
+    <Compile Include="MessageFlagDelegateMapper.cs" />
     <Compile Include="GClass9.cs" />
     <Compile Include="ClientServerMessageFlags.cs" />
     <Compile Include="GEnum1.cs" />

@@ -46,11 +46,11 @@ public class MessageHandler
 
     // Token: 0x17000005 RID: 5
     // (set) Token: 0x0600006C RID: 108 RVA: 0x000023BB File Offset: 0x000005BB
-    public Action<object> Action_3
+    public Action<object> WaitForWorldOfWarcraft
     {
         set
         {
-            this.server.action_7 = value;
+            this.server.WaitForWorldOfWarcraft = value;
         }
     }
 
@@ -119,10 +119,9 @@ public class MessageHandler
         return true;
     }
 
-    // Token: 0x06000074 RID: 116 RVA: 0x0000241D File Offset: 0x0000061D
-    public void method_2(string licenseKey, string machineGuid)
+    public void method_2(string licenseKey, string machineIdentifier)
     {
-        this.method_0(MessageFactory.CreateClientAuthMsg(licenseKey, machineGuid));
+        method_0(MessageFactory.CreateClientAuthMsg(licenseKey, machineIdentifier));
     }
 
     // Token: 0x06000075 RID: 117 RVA: 0x000036CC File Offset: 0x000018CC

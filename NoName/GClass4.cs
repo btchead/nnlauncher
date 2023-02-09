@@ -24,7 +24,7 @@ public class GClass4
 		@class.long_0 = array[0] & -4096L;
 		byte[] array2 = this.gclass14_0.method_4(@class.long_0, 4096);
 		this.gclass2_0.Action_2 = new Action<byte[], int>(@class.method_0);
-		this.gclass2_0.IsClientRequestNeedlePayloadMsg_Sent(this.gclass14_0.String_0, array, array2, (ulong)this.gclass14_0.method_14(), string_0);
+		this.gclass2_0.IsClientRequestNeedlePayloadMsg_Sent(this.gclass14_0.FileVersion, array, array2, (ulong)this.gclass14_0.GetMainModuleBaseAddress(), string_0);
 	}
 
 	// Token: 0x0600008B RID: 139 RVA: 0x00003A38 File Offset: 0x00001C38
@@ -32,11 +32,11 @@ public class GClass4
 	{
 		int num = 0;
 		GStruct1 gstruct;
-		KernelAPI.VirtualQueryEx(this.gclass14_0.IntPtr_0, this.gclass14_0.Process_0.MainModule.BaseAddress, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
+		KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, this.gclass14_0.process.MainModule.BaseAddress, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
 		byte[] array = this.gclass14_0.method_4((long)gstruct.ulong_0, (int)gstruct.ulong_2);
 		if (array != null)
 		{
-			for (int i = (int)((long)(this.gclass14_0.Process_0.MainModule.ModuleMemorySize / 4) & 4294963200L); i < (int)gstruct.ulong_2; i += 4096)
+			for (int i = (int)((long)(this.gclass14_0.process.MainModule.ModuleMemorySize / 4) & 4294963200L); i < (int)gstruct.ulong_2; i += 4096)
 			{
 				long num2 = BitConverter.ToInt64(array, i);
 				if (this.method_2(num2))
@@ -77,10 +77,10 @@ public class GClass4
 	// Token: 0x0600008C RID: 140 RVA: 0x00003BA0 File Offset: 0x00001DA0
 	private bool method_2(long long_0)
 	{
-		if (long_0 <= (long)this.gclass14_0.Process_0.MainModule.BaseAddress || long_0 >= (long)this.gclass14_0.Process_0.MainModule.BaseAddress + (long)this.gclass14_0.Process_0.MainModule.ModuleMemorySize)
+		if (long_0 <= (long)this.gclass14_0.process.MainModule.BaseAddress || long_0 >= (long)this.gclass14_0.process.MainModule.BaseAddress + (long)this.gclass14_0.process.MainModule.ModuleMemorySize)
 		{
 			GStruct1 gstruct;
-			KernelAPI.VirtualQueryEx(this.gclass14_0.IntPtr_0, (IntPtr)long_0, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
+			KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, (IntPtr)long_0, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
 			return gstruct.ulong_2 != 0UL && gstruct.uint_2 != 1U && (gstruct.uint_0 & 64U) > 0U;
 		}
 		return false;
@@ -153,7 +153,7 @@ public class GClass4
 		// Token: 0x06000097 RID: 151 RVA: 0x00003C54 File Offset: 0x00001E54
 		internal void method_0(byte[] byte_0, int int_0)
 		{
-			this.gclass4_0.gclass14_0.method_10((IntPtr)this.long_0, byte_0);
+			this.gclass4_0.gclass14_0.WriteBytesToMemory((IntPtr)this.long_0, byte_0);
 			this.gclass4_0.gclass14_0.method_0(true);
 			this.gclass4_0.gclass14_0.method_3((IntPtr)(this.long_0 + (long)int_0));
 			Thread.Sleep(25);

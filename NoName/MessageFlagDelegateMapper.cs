@@ -1,10 +1,6 @@
-﻿using System;
-
-// Token: 0x02000013 RID: 19
-public class GClass8
+﻿public class MessageFlagDelegateMapper
 {
-	// Token: 0x060000D3 RID: 211 RVA: 0x00004738 File Offset: 0x00002938
-	public static void smethod_0()
+	public static void SetupMessageDelegates()
 	{
 		GClass9.smethod_0(ClientServerMessageFlags.SMSG_AUTH_STATUS, new GClass9.GDelegate0(GClass6.smethod_1));
 		GClass9.smethod_0(ClientServerMessageFlags.SMSG_KEY, new GClass9.GDelegate0(GClass6.smethod_0));

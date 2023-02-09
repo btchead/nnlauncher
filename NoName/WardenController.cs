@@ -5,22 +5,22 @@ using System.Threading;
 using Microsoft.Win32;
 
 // Token: 0x02000002 RID: 2
-public class GClass0
+public class WardenController
 {
     // Token: 0x06000001 RID: 1 RVA: 0x00002AAC File Offset: 0x00000CAC
-    public GClass0(GClass14 gclass14_1, Server server = null)
+    public WardenController(GClass14 gclass14_1, Server server = null)
     {
         this.gclass14_0 = gclass14_1;
         this.messageHandler = new MessageHandler(server);
         this.gclass4_0 = new GClass4(gclass14_1, this.messageHandler);
-        this.gclass3_0 = new GClass3(gclass14_1, this.messageHandler);
+        this.wardenScanner = new WardenScanner(gclass14_1, this.messageHandler);
         this.messageHandler.Action_0 = new Action(this.method_3);
     }
 
     // Token: 0x06000002 RID: 2 RVA: 0x00002B10 File Offset: 0x00000D10
     public void method_0(Action action_1)
     {
-        string fileVersion = this.gclass14_0.Process_0.MainModule.FileVersionInfo.FileVersion;
+        string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
         this.messageHandler.method_7(fileVersion, action_1);
     }
 
@@ -28,9 +28,9 @@ public class GClass0
     public void method_1(string string_0, Action action_1)
     {
         this.action_0 = action_1;
-        string fileVersion = this.gclass14_0.Process_0.MainModule.FileVersionInfo.FileVersion;
-        this.ulong_0 = (ulong)this.gclass14_0.method_16(16384, MemoryProtectionFlags.PAGE_READWRITE, GClass14.MemoryAllocationFlags.MEM_COMMIT, -1L).ToInt64();
-        this.messageHandler.method_8(fileVersion, (ulong)this.gclass14_0.method_14(), this.ulong_0, string_0, Directory.GetCurrentDirectory() + "\\", new Action(this.method_2));
+        string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
+        this.ulong_0 = (ulong)this.gclass14_0.AllocateMemory(16384, MemoryProtectionFlags.PAGE_READWRITE, GClass14.MemoryAllocationType.MEM_COMMIT, -1L).ToInt64();
+        this.messageHandler.method_8(fileVersion, (ulong)this.gclass14_0.GetMainModuleBaseAddress(), this.ulong_0, string_0, Directory.GetCurrentDirectory() + "\\", new Action(this.method_2));
     }
 
     // Token: 0x06000004 RID: 4 RVA: 0x000020EC File Offset: 0x000002EC
@@ -45,8 +45,8 @@ public class GClass0
     // Token: 0x06000005 RID: 5 RVA: 0x00002BE0 File Offset: 0x00000DE0
     public void method_3()
     {
-        string fileVersion = this.gclass14_0.Process_0.MainModule.FileVersionInfo.FileVersion;
-        byte[] array = this.gclass14_0.method_5(this.gclass14_0.Process_0.MainModule.BaseAddress, this.gclass14_0.Process_0.MainModule.ModuleMemorySize);
+        string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
+        byte[] array = this.gclass14_0.method_5(this.gclass14_0.process.MainModule.BaseAddress, this.gclass14_0.process.MainModule.ModuleMemorySize);
         int num = 65536;
         for (int i = 0; i < array.Length; i += num)
         {
@@ -65,7 +65,7 @@ public class GClass0
     public void method_4()
     {
         GClass4 gclass = new GClass4(this.gclass14_0, this.messageHandler);
-        gclass.method_0(this.method_12());
+        gclass.method_0(this.GetMachineGUID());
     }
 
     // Token: 0x06000007 RID: 7 RVA: 0x00002CC0 File Offset: 0x00000EC0
@@ -85,42 +85,38 @@ public class GClass0
     }
 
     // Token: 0x06000008 RID: 8 RVA: 0x00002113 File Offset: 0x00000313
-    public void method_6()
+    public void StartWardenScanningThread()
     {
-        new Thread(new ThreadStart(this.gclass3_0.method_0)).Start();
+        Thread wardenThread = new Thread(new ThreadStart(wardenScanner.StartWardenScanning));
+        wardenThread.Start();
     }
 
     // Token: 0x06000009 RID: 9 RVA: 0x00002130 File Offset: 0x00000330
-    public void method_7()
+    public void DisableWardenScanning()
     {
-        this.gclass3_0.method_1();
-    }
-
-    // Token: 0x0600000A RID: 10 RVA: 0x0000213D File Offset: 0x0000033D
-    public void method_8()
-    {
+        wardenScanner.DisableScanning();
     }
 
     // Token: 0x0600000B RID: 11 RVA: 0x0000213F File Offset: 0x0000033F
     public string method_9()
     {
-        return this.gclass14_0.method_9((IntPtr)(this.gclass14_0.method_14() + (long)this.messageHandler.List_0[46]), 32);
+        return this.gclass14_0.method_9((IntPtr)(this.gclass14_0.GetMainModuleBaseAddress() + (long)this.messageHandler.List_0[46]), 32);
     }
 
     // Token: 0x0600000C RID: 12 RVA: 0x00002171 File Offset: 0x00000371
-    public void method_10()
+    public void SuspendProcess()
     {
-        KernelAPI.NtSuspendProcess(this.gclass14_0.IntPtr_0);
+        KernelAPI.NtSuspendProcess(this.gclass14_0.processHandle);
     }
 
     // Token: 0x0600000D RID: 13 RVA: 0x00002183 File Offset: 0x00000383
-    public void method_11()
+    public void ResumeProcess()
     {
-        KernelAPI.NtResumeProcess(this.gclass14_0.IntPtr_0);
+        KernelAPI.NtResumeProcess(this.gclass14_0.processHandle);
     }
 
     // Token: 0x0600000E RID: 14 RVA: 0x00002D40 File Offset: 0x00000F40
-    private string method_12()
+    private string GetMachineGUID()
     {
         string text = "SOFTWARE\\Microsoft\\Cryptography";
         string text2 = "MachineGuid";
@@ -151,7 +147,7 @@ public class GClass0
     private GClass4 gclass4_0;
 
     // Token: 0x04000003 RID: 3
-    private GClass3 gclass3_0;
+    private WardenScanner wardenScanner;
 
     // Token: 0x04000005 RID: 5
     private MessageHandler messageHandler;
