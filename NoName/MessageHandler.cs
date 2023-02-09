@@ -155,7 +155,7 @@ public class MessageHandler
     }
 
     // Token: 0x06000077 RID: 119 RVA: 0x00003794 File Offset: 0x00001994
-    public bool IsClientRequestHookPayloadMsg_Sent(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0)
+    public bool SendClientRequestHookPayloadMsg(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0)
     {
         MessageMemoryStream gclass = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_HOOK_PAYLOAD);
         gclass.method_9(ulong_0);

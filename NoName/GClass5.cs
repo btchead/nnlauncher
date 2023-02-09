@@ -106,7 +106,7 @@ public class GClass5
 		if (array2 != null)
 		{
 			this.gclass2_0.Action_1 = action_0;
-			this.gclass2_0.IsClientRequestHookPayloadMsg_Sent(this.gclass14_0.FileVersion, array, array2, (ulong)this.gclass14_0.GetMainModuleBaseAddress());
+			this.gclass2_0.SendClientRequestHookPayloadMsg(this.gclass14_0.FileVersion, array, array2, (ulong)this.gclass14_0.GetMainModuleBaseAddress());
 			return num;
 		}
 		Console.WriteLine("Criticale error!");
