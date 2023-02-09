@@ -28,7 +28,7 @@ internal class Application
             processUtils.server = new Server(new Action(ConnectionLossRoutine));
 
             MessageHandler messageHandler = new MessageHandler(processUtils.server);
-            if (messageHandler.SendClientKeyMsg())
+            if (messageHandler.SendKeyMessage())
             {
                 messageHandler.WaitForWorldOfWarcraft = new Action<object>(processUtils.WaitForWorldOfWarcraft);
                 processUtils.hasResumed = true;
