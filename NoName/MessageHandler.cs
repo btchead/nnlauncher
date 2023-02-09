@@ -135,8 +135,7 @@ public class MessageHandler
     }
 
     // Token: 0x06000076 RID: 118 RVA: 0x00003700 File Offset: 0x00001900
-    // Sure it's a long name, but try to understand that tommorow.
-    public bool IsClientRequestNeedlePayloadMsg_Sent(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0, string string_1)
+    public bool SendClientRequestNeedlePayloadMsg(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0, string string_1)
     {
         MessageMemoryStream gclass = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_NEEDLE_PAYLOAD);
         gclass.method_9(ulong_0);
@@ -151,7 +150,7 @@ public class MessageHandler
         gclass.method_14(string_0, string_0.Length);
         gclass.method_7((ushort)string_1.Length);
         gclass.method_14(string_1, string_1.Length);
-        this.server.WriteMemoryStream(gclass, false, false);
+        server.WriteMemoryStream(gclass, false, false);
         return true;
     }
 

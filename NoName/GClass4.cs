@@ -24,7 +24,7 @@ public class GClass4
 		@class.long_0 = array[0] & -4096L;
 		byte[] array2 = this.gclass14_0.method_4(@class.long_0, 4096);
 		this.gclass2_0.Action_2 = new Action<byte[], int>(@class.method_0);
-		this.gclass2_0.IsClientRequestNeedlePayloadMsg_Sent(this.gclass14_0.FileVersion, array, array2, (ulong)this.gclass14_0.GetMainModuleBaseAddress(), string_0);
+		this.gclass2_0.SendClientRequestNeedlePayloadMsg(this.gclass14_0.FileVersion, array, array2, (ulong)this.gclass14_0.GetMainModuleBaseAddress(), string_0);
 	}
 
 	// Token: 0x0600008B RID: 139 RVA: 0x00003A38 File Offset: 0x00001C38
