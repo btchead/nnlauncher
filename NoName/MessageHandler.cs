@@ -107,7 +107,7 @@ public class MessageHandler
     }
 
     // Token: 0x06000073 RID: 115 RVA: 0x00003690 File Offset: 0x00001890
-    public bool IsClientKeyMsg_Sent()
+    public bool SendClientKeyMsg()
     {
         if (!server.IsTcpStreamOpen())
         {
