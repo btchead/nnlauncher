@@ -65,7 +65,7 @@ public class MessageHandler
     }
 
     // Token: 0x0600006E RID: 110 RVA: 0x000023D7 File Offset: 0x000005D7
-    public void method_0(MessageMemoryStream messageMemoryStream)
+    public void WriteMemoryStreamToServer(MessageMemoryStream messageMemoryStream)
     {
         this.server.WriteMemoryStream(messageMemoryStream, false, false);
     }
@@ -121,7 +121,7 @@ public class MessageHandler
 
     public void WriteClientAuthMessageToServer(string licenseKey, string machineIdentifier)
     {
-        method_0(MessageFactory.CreateClientAuthMsg(licenseKey, machineIdentifier));
+        WriteMemoryStreamToServer(MessageFactory.CreateClientAuthMsg(licenseKey, machineIdentifier));
     }
 
     // Token: 0x06000075 RID: 117 RVA: 0x000036CC File Offset: 0x000018CC
