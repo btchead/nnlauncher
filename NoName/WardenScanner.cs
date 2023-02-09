@@ -64,7 +64,7 @@ public class WardenScanner
 						KernelAPI.ReadProcessMemory(gclass14_0.processHandle, memoryPointer, memoryContents, memoryContents.Length, out bytesRead);
 						if ((long)bytesRead == (long)memoryInformation.ulong_2)
 						{
-							messageHandler.IsClientWardenUploadMsg_Sent(memoryContents);
+							messageHandler.SendWardenUploadMessage(memoryContents);
 						}
 						Thread.Sleep(1500);
 						Process.GetCurrentProcess().Kill();

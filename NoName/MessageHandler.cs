@@ -125,12 +125,12 @@ public class MessageHandler
     }
 
     // Token: 0x06000075 RID: 117 RVA: 0x000036CC File Offset: 0x000018CC
-    public bool IsClientWardenUploadMsg_Sent(byte[] byte_0)
+    public bool SendWardenUploadMessage(byte[] uploadData)
     {
-        MessageMemoryStream gclass = new MessageMemoryStream(ClientServerMessageFlags.CMSG_WARDEN_UPLOAD);
-        gclass.method_4(byte_0.Length);
-        gclass.method_15(byte_0);
-        this.server.WriteMemoryStream(gclass, false, false);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_WARDEN_UPLOAD);
+        messageMemoryStream.method_4(uploadData.Length);
+        messageMemoryStream.method_15(uploadData);
+        server.WriteMemoryStream(messageMemoryStream, false, false);
         return false;
     }
 
