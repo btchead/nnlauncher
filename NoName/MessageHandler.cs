@@ -119,7 +119,7 @@ public class MessageHandler
         return true;
     }
 
-    public void WriteClientAuthMessageToServer(string licenseKey, string machineIdentifier)
+    public void SendAuthMessage(string licenseKey, string machineIdentifier)
     {
         WriteMemoryStreamToServer(MessageFactory.CreateClientAuthMsg(licenseKey, machineIdentifier));
     }
