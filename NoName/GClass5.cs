@@ -10,7 +10,7 @@ using System.Threading;
 public class GClass5
 {
 	// Token: 0x06000099 RID: 153 RVA: 0x00002508 File Offset: 0x00000708
-	public GClass5(GClass14 gclass14_1, MessageHandler gclass2_1)
+	public GClass5(ProcessMemoryHandler gclass14_1, MessageHandler gclass2_1)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.gclass2_0 = gclass2_1;
@@ -34,7 +34,7 @@ public class GClass5
 		@class.gclass5_0 = this;
 		List<byte> list = new List<byte>();
 		list.AddRange(this.gclass2_0.Byte_0);
-		@class.ulong_0 = (ulong)(long)this.gclass14_0.AllocateMemory(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.MemoryAllocationType.MEM_COMMIT, -1L);
+		@class.ulong_0 = (ulong)(long)this.gclass14_0.AllocateMemory(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L);
 		this.gclass14_0.WriteBytesToMemory((IntPtr)((long)@class.ulong_0), list.ToArray());
 		@class.ulong_1 = (ulong)this.gclass14_0.GetMainModuleBaseAddress();
 		@class.long_0 = 0L;
@@ -49,7 +49,7 @@ public class GClass5
 			int num = i;
 			byte_2[num] ^= byte_1[i % 16];
 		}
-		ulong num2 = (ulong)(long)this.gclass14_0.AllocateMemory(byte_2.Length, MemoryProtectionFlags.PAGE_READWRITE, GClass14.MemoryAllocationType.MEM_COMMIT, -1L);
+		ulong num2 = (ulong)(long)this.gclass14_0.AllocateMemory(byte_2.Length, MemoryProtectionFlags.PAGE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L);
 		this.gclass14_0.WriteBytesToMemory((IntPtr)((long)num2), byte_2);
 	}
 
@@ -58,7 +58,7 @@ public class GClass5
 	{
 		List<byte> list = new List<byte>();
 		list.AddRange(GClass5.byte_0);
-		ulong num = (ulong)(long)this.gclass14_0.AllocateMemory(GClass5.byte_0.Length + string_0.Length + 30, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, GClass14.MemoryAllocationType.MEM_COMMIT, -1L);
+		ulong num = (ulong)(long)this.gclass14_0.AllocateMemory(GClass5.byte_0.Length + string_0.Length + 30, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L);
 		byte[] bytes = BitConverter.GetBytes(num + (ulong)((long)list.Count));
 		for (int i = 0; i < bytes.Length; i++)
 		{
@@ -276,7 +276,7 @@ public class GClass5
 	}
 
 	// Token: 0x04000025 RID: 37
-	private GClass14 gclass14_0;
+	private ProcessMemoryHandler gclass14_0;
 
 	// Token: 0x04000026 RID: 38
 	private MessageHandler gclass2_0;

@@ -9,7 +9,7 @@ using System.Threading;
 public class GClass4
 {
 	// Token: 0x06000089 RID: 137 RVA: 0x000024E0 File Offset: 0x000006E0
-	public GClass4(GClass14 gclass14_1, MessageHandler gclass2_1)
+	public GClass4(ProcessMemoryHandler gclass14_1, MessageHandler gclass2_1)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.gclass2_0 = gclass2_1;
@@ -141,7 +141,7 @@ public class GClass4
 	}
 
 	// Token: 0x04000021 RID: 33
-	private GClass14 gclass14_0;
+	private ProcessMemoryHandler gclass14_0;
 
 	// Token: 0x04000022 RID: 34
 	private MessageHandler gclass2_0;

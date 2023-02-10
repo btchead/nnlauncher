@@ -8,7 +8,7 @@ using Microsoft.Win32;
 public class WardenController
 {
     // Token: 0x06000001 RID: 1 RVA: 0x00002AAC File Offset: 0x00000CAC
-    public WardenController(GClass14 gclass14_1, Server server = null)
+    public WardenController(ProcessMemoryHandler gclass14_1, Server server = null)
     {
         this.gclass14_0 = gclass14_1;
         this.messageHandler = new MessageHandler(server);
@@ -28,7 +28,7 @@ public class WardenController
     {
         action_0 = callback;
         string fileVersion = gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
-        allocatedMemory = (ulong)gclass14_0.AllocateMemory(16384, MemoryProtectionFlags.PAGE_READWRITE, GClass14.MemoryAllocationType.MEM_COMMIT, -1L).ToInt64();
+        allocatedMemory = (ulong)gclass14_0.AllocateMemory(16384, MemoryProtectionFlags.PAGE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L).ToInt64();
         messageHandler.method_8(fileVersion, (ulong)gclass14_0.GetMainModuleBaseAddress(), allocatedMemory, punaniString, Directory.GetCurrentDirectory() + "\\", new Action(method_2));
     }
 
@@ -140,7 +140,7 @@ public class WardenController
     }
 
     // Token: 0x04000001 RID: 1
-    public GClass14 gclass14_0;
+    public ProcessMemoryHandler gclass14_0;
 
     // Token: 0x04000002 RID: 2
     private GClass4 gclass4_0;

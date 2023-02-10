@@ -6,7 +6,7 @@ using System.Threading;
 
 public class WardenScanner
 {
-	public WardenScanner(GClass14 gclass14_1, MessageHandler messageHandler)
+	public WardenScanner(ProcessMemoryHandler gclass14_1, MessageHandler messageHandler)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.messageHandler = messageHandler;
@@ -84,7 +84,7 @@ public class WardenScanner
 		scanningEnabled = false;
 	}
 
-	private GClass14 gclass14_0;
+	private ProcessMemoryHandler gclass14_0;
 
 	private MessageHandler messageHandler;
 

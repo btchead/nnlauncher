@@ -216,7 +216,7 @@ internal class Application
             try
             {
                 class7.isInjectionCancelled = waitTimeStruct.waitTime == 2;
-                class7.wardenController = new WardenController(new GClass14(class7.process), this.server);
+                class7.wardenController = new WardenController(new ProcessMemoryHandler(class7.process), this.server);
                 if (class7.isInjectionCancelled)
                 {
                     class7.wardenController.SuspendProcess();

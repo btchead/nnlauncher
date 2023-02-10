@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 // Token: 0x0200001E RID: 30
-public class GClass14
+public class ProcessMemoryHandler
 {
 	public Process process { get; set; }
 
@@ -17,7 +17,7 @@ public class GClass14
 	public string FileVersion => this.process.MainModule.FileVersionInfo.FileVersion;
 
 	// Token: 0x06000171 RID: 369 RVA: 0x000029BE File Offset: 0x00000BBE
-	public GClass14(Process process_1)
+	public ProcessMemoryHandler(Process process_1)
 	{
 		this.process = process_1;
 		this.processHandle = this.OpenProcess(65535);

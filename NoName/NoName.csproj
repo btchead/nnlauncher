@@ -79,11 +79,11 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="WardenController.cs" />
-    <Compile Include="GClass10.cs" />
+    <Compile Include="BinaryReaderWrapper.cs" />
     <Compile Include="MessageMemoryStream.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="KernelAPI.cs" />
-    <Compile Include="GClass14.cs" />
+    <Compile Include="ProcessMemoryHandler.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="WardenScanner.cs" />
     <Compile Include="GClass4.cs" />
