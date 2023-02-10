@@ -73,7 +73,7 @@ public class Server
     {
         if (messageMemoryStream == null) return;
 
-        byte[] messageBytes = messageMemoryStream.ReadBytes(byte_0);
+        byte[] messageBytes = messageMemoryStream.ReadBytes();
         try
         {
             connectionStream.BeginWrite(messageBytes, 0, messageBytes.Length, new AsyncCallback(StreamWriteEndCallback), connectionStream);
