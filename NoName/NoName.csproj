@@ -86,7 +86,7 @@
     <Compile Include="ProcessMemoryHandler.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="WardenScanner.cs" />
-    <Compile Include="GClass4.cs" />
+    <Compile Include="MemoryHandlerCommunicator.cs" />
     <Compile Include="GClass5.cs" />
     <Compile Include="GClass6.cs" />
     <Compile Include="MessageFactory.cs" />
