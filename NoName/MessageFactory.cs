@@ -42,17 +42,17 @@ public class MessageFactory
     }
 
     // Token: 0x060000CD RID: 205 RVA: 0x00004624 File Offset: 0x00002824
-    public static MessageMemoryStream CreateClientRequestPayloadMsg(string string_0, ulong ulong_0, ulong ulong_1, string string_1, string string_2)
+    public static MessageMemoryStream CreateClientRequestPayloadMsg(string fileVersion, ulong moduleBaseAddress, ulong allocatedMemory, string punaniString, string path)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQEUEST_APAYLOAD);
-        messageMemoryStream.method_7((ushort)string_0.Length);
-        messageMemoryStream.method_14(string_0, string_0.Length);
-        messageMemoryStream.method_9(ulong_0);
-        messageMemoryStream.method_9(ulong_1);
-        messageMemoryStream.method_7((ushort)string_1.Length);
-        messageMemoryStream.method_14(string_1, string_1.Length);
-        messageMemoryStream.method_7((ushort)string_2.Length);
-        messageMemoryStream.method_14(string_2, string_2.Length);
+        messageMemoryStream.method_7((ushort)fileVersion.Length);
+        messageMemoryStream.method_14(fileVersion, fileVersion.Length);
+        messageMemoryStream.method_9(moduleBaseAddress);
+        messageMemoryStream.method_9(allocatedMemory);
+        messageMemoryStream.method_7((ushort)punaniString.Length);
+        messageMemoryStream.method_14(punaniString, punaniString.Length);
+        messageMemoryStream.method_7((ushort)path.Length);
+        messageMemoryStream.method_14(path, path.Length);
         return messageMemoryStream;
     }
 
