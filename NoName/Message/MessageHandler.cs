@@ -54,16 +54,6 @@ public class MessageHandler
         }
     }
 
-    // Token: 0x17000006 RID: 6
-    // (set) Token: 0x0600006D RID: 109 RVA: 0x000023C9 File Offset: 0x000005C9
-    public Action<byte[], byte[]> Action_4
-    {
-        set
-        {
-            this.server.action_8 = value;
-        }
-    }
-
     // Token: 0x0600006E RID: 110 RVA: 0x000023D7 File Offset: 0x000005D7
     public void WriteMemoryStreamToServer(MessageMemoryStream messageMemoryStream)
     {
@@ -109,7 +99,7 @@ public class MessageHandler
     // Token: 0x06000073 RID: 115 RVA: 0x00003690 File Offset: 0x00001890
     public bool SendKeyMessage()
     {
-        if (!server.IsTcpStreamOpen())
+        if (!server.OpenStream())
         {
             return false;
         }

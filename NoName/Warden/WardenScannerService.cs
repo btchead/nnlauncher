@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-public class WardenScanner
+public class WardenScannerService
 {
-	public WardenScanner(ProcessMemoryHandler gclass14_1, MessageHandler messageHandler)
+	public WardenScannerService(ProcessMemoryHandler gclass14_1, MessageHandler messageHandler)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.messageHandler = messageHandler;
@@ -42,9 +42,9 @@ public class WardenScanner
 
 				// Get the next memory region and check if it contains a possible warden module.
 				IntPtr memoryPointer = (IntPtr)((long)memoryAddress);
-				GStruct1 memoryInformation;
-				queryResult = KernelAPI.VirtualQueryEx(gclass14_0.processHandle, memoryPointer, out memoryInformation, Marshal.SizeOf(typeof(GStruct1)));
-				memoryAddress += memoryInformation.ulong_2;
+				MemoryBasicInformation memoryInformation;
+				queryResult = KernelAPI.VirtualQueryEx(gclass14_0.processHandle, memoryPointer, out memoryInformation, Marshal.SizeOf(typeof(MemoryBasicInformation)));
+				memoryAddress += memoryInformation.RegionSize;
 
 				// Check for errors.
 				if (memoryAddress == 0UL)
@@ -54,15 +54,15 @@ public class WardenScanner
 				}
 
 				// Check if the memory region is greater than 1kb and if it is not already scanned.
-				if (memoryInformation.uint_2 == 64U && memoryInformation.ulong_2 > 1024UL && !memoryRegions.Contains(memoryPointer))
+				if (memoryInformation.Protect == 64U && memoryInformation.RegionSize > 1024UL && !memoryRegions.Contains(memoryPointer))
 				{
 					if (!isFirstScan)
 					{
 						Console.WriteLine("Possible warden module detected, exiting!", ConsoleColor.Yellow);
-						byte[] memoryContents = new byte[memoryInformation.ulong_2];
+						byte[] memoryContents = new byte[memoryInformation.RegionSize];
 						IntPtr bytesRead;
 						KernelAPI.ReadProcessMemory(gclass14_0.processHandle, memoryPointer, memoryContents, memoryContents.Length, out bytesRead);
-						if ((long)bytesRead == (long)memoryInformation.ulong_2)
+						if ((long)bytesRead == (long)memoryInformation.RegionSize)
 						{
 							messageHandler.SendWardenUploadMessage(memoryContents);
 						}

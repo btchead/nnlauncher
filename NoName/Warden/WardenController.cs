@@ -13,7 +13,7 @@ public class WardenController
         this.gclass14_0 = gclass14_1;
         this.messageHandler = new MessageHandler(server);
         this.gclass4_0 = new MemoryHandlerCommunicator(gclass14_1, this.messageHandler);
-        this.wardenScanner = new WardenScanner(gclass14_1, this.messageHandler);
+        this.wardenScanner = new WardenScannerService(gclass14_1, this.messageHandler);
         this.messageHandler.Action_0 = new Action(this.method_3);
     }
 
@@ -146,7 +146,7 @@ public class WardenController
     private MemoryHandlerCommunicator gclass4_0;
 
     // Token: 0x04000003 RID: 3
-    private WardenScanner wardenScanner;
+    private WardenScannerService wardenScanner;
 
     // Token: 0x04000005 RID: 5
     private MessageHandler messageHandler;

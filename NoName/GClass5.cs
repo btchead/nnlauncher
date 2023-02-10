@@ -72,14 +72,14 @@ public class GClass5
 	private long[] method_5(int int_0)
 	{
 		int num = 0;
-		GStruct1 gstruct;
-		KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, this.gclass14_0.process.MainModule.BaseAddress, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
-		byte[] array = this.gclass14_0.method_4((long)gstruct.ulong_0, (int)gstruct.ulong_2);
+		MemoryBasicInformation memoryBasicInfo;
+		KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, this.gclass14_0.process.MainModule.BaseAddress, out memoryBasicInfo, Marshal.SizeOf(typeof(MemoryBasicInformation)));
+		byte[] array = this.gclass14_0.method_4((long)memoryBasicInfo.BaseAddress, (int)memoryBasicInfo.RegionSize);
 		if (array == null)
 		{
 			return null;
 		}
-		for (int i = (int)((long)(this.gclass14_0.process.MainModule.ModuleMemorySize / 4) & 4294963200L); i < (int)gstruct.ulong_2; i += 4096)
+		for (int i = (int)((long)(this.gclass14_0.process.MainModule.ModuleMemorySize / 4) & 4294963200L); i < (int)memoryBasicInfo.RegionSize; i += 4096)
 		{
 			long num2 = BitConverter.ToInt64(array, i);
 			if (this.method_6(num2))
@@ -115,9 +115,9 @@ public class GClass5
 	{
 		if (long_0 <= (long)this.gclass14_0.process.MainModule.BaseAddress || long_0 >= (long)this.gclass14_0.process.MainModule.BaseAddress + (long)this.gclass14_0.process.MainModule.ModuleMemorySize)
 		{
-			GStruct1 gstruct;
-			KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, (IntPtr)long_0, out gstruct, Marshal.SizeOf(typeof(GStruct1)));
-			return gstruct.ulong_2 != 0UL && gstruct.uint_2 != 1U && (gstruct.uint_0 & 64U) > 0U;
+			MemoryBasicInformation memoryBasicInfo;
+			KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, (IntPtr)long_0, out memoryBasicInfo, Marshal.SizeOf(typeof(MemoryBasicInformation)));
+			return memoryBasicInfo.RegionSize != 0UL && memoryBasicInfo.Protect != 1U && (memoryBasicInfo.AllocationProtect & 64U) > 0U;
 		}
 		return false;
 	}
