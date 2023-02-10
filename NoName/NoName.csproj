@@ -78,26 +78,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
-    <Compile Include="Warden\WardenController.cs" />
+    <Compile Include="WardenController.cs" />
     <Compile Include="BinaryReaderWrapper.cs" />
-    <Compile Include="Message\MessageMemoryStream.cs" />
+    <Compile Include="MessageMemoryStream.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="KernelAPI.cs" />
-    <Compile Include="Memory\ProcessMemoryHandler.cs" />
-    <Compile Include="Message\MessageHandler.cs" />
-    <Compile Include="Warden\WardenScannerService.cs" />
-    <Compile Include="Memory\MemoryHandlerCommunicator.cs" />
+    <Compile Include="ProcessMemoryHandler.cs" />
+    <Compile Include="MessageHandler.cs" />
+    <Compile Include="WardenScannerService.cs" />
+    <Compile Include="MemoryHandlerCommunicator.cs" />
     <Compile Include="GClass5.cs" />
     <Compile Include="GClass6.cs" />
-    <Compile Include="Message\MessageFactory.cs" />
-    <Compile Include="Message\MessageFlagDelegateMapper.cs" />
+    <Compile Include="MessageFactory.cs" />
+    <Compile Include="MessageFlagDelegateMapper.cs" />
     <Compile Include="GClass9.cs" />
-    <Compile Include="Enums\ClientServerMessageFlags.cs" />
-    <Compile Include="Enums\LuaFunctions.cs" />
-    <Compile Include="Enums\ThreadAccessFlags.cs" />
-    <Compile Include="Enums\MemoryProtectionFlags.cs" />
-    <Compile Include="Message\MessageHeaderStruct.cs" />
-    <Compile Include="Memory\MemoryBasicInformation.cs" />
+    <Compile Include="ClientServerMessageFlags.cs" />
+    <Compile Include="LuaFunctions.cs" />
+    <Compile Include="ThreadAccessFlags.cs" />
+    <Compile Include="MemoryProtectionFlags.cs" />
+    <Compile Include="MessageHeaderStruct.cs" />
+    <Compile Include="MemoryBasicInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
