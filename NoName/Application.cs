@@ -13,25 +13,25 @@ internal class Application
     {
         Console.Title = GenerateRandomString();
 
-        WorldOfWarcraftProcessUtils processUtils = new WorldOfWarcraftProcessUtils();
+        WorldOfWarcraftProcessUtils wowProcessUtils = new WorldOfWarcraftProcessUtils();
 
         if (CheckLicenseFile() == true)
         {
             licenseKey = File.ReadAllText(licenseKeyFileName);
 
-            foreach (string processName in processUtils.wowProcessNames)
+            foreach (string processName in wowProcessUtils.wowProcessNames)
             {
-                processUtils.processList.AddRange(Process.GetProcessesByName(processName));
+                wowProcessUtils.processList.AddRange(Process.GetProcessesByName(processName));
             }
 
-            processUtils.maxProcessWaitTimestamp = DateTime.Now.AddSeconds(20.0);
-            processUtils.server = new Server(new Action(ConnectionLossRoutine));
+            wowProcessUtils.maxProcessWaitTimestamp = DateTime.Now.AddSeconds(20.0);
+            wowProcessUtils.server = new Server(new Action(ConnectionLossRoutine));
 
-            MessageHandler messageHandler = new MessageHandler(processUtils.server);
+            MessageHandler messageHandler = new MessageHandler(wowProcessUtils.server);
             if (messageHandler.SendKeyMessage())
             {
-                messageHandler.WaitForWorldOfWarcraft = new Action<object>(processUtils.WaitForWorldOfWarcraft);
-                processUtils.hasResumed = true;
+                messageHandler.WaitForWorldOfWarcraft = new Action<object>(wowProcessUtils.WaitForWorldOfWarcraft);
+                wowProcessUtils.hasResumed = true;
                 messageHandler.SendAuthMessage(licenseKey, GetMachineIdentifier());
                 Thread.Sleep(-1);
                 return;
