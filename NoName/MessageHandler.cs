@@ -186,11 +186,10 @@ public class MessageHandler
         this.server.action_2 = action_0;
     }
 
-    // Token: 0x0600007A RID: 122 RVA: 0x00002471 File Offset: 0x00000671
-    public void method_8(string string_0, ulong ulong_0, ulong ulong_1, string string_1, string string_2, Action action_0)
+    public void method_8(string fileVersion, ulong moduleBaseAddress, ulong allocatedMemory, string punaniString, string path, Action callback)
     {
-        this.server.WriteMemoryStream(MessageFactory.CreateClientRequestPayloadMsg(string_0, ulong_0, ulong_1, string_1, string_2), false, false);
-        this.server.action_3 = action_0;
+        server.WriteMemoryStream(MessageFactory.CreateClientRequestPayloadMsg(fileVersion, moduleBaseAddress, allocatedMemory, punaniString, path), false, false);
+        server.action_3 = callback;
     }
 
     // Token: 0x0400001D RID: 29

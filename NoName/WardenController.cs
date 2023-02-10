@@ -24,13 +24,12 @@ public class WardenController
         this.messageHandler.method_7(fileVersion, action_1);
     }
 
-    // Token: 0x06000003 RID: 3 RVA: 0x00002B48 File Offset: 0x00000D48
-    public void method_1(string string_0, Action action_1)
+    public void method_1(string punaniString, Action callback)
     {
-        this.action_0 = action_1;
-        string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
-        this.ulong_0 = (ulong)this.gclass14_0.AllocateMemory(16384, MemoryProtectionFlags.PAGE_READWRITE, GClass14.MemoryAllocationType.MEM_COMMIT, -1L).ToInt64();
-        this.messageHandler.method_8(fileVersion, (ulong)this.gclass14_0.GetMainModuleBaseAddress(), this.ulong_0, string_0, Directory.GetCurrentDirectory() + "\\", new Action(this.method_2));
+        action_0 = callback;
+        string fileVersion = gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
+        allocatedMemory = (ulong)gclass14_0.AllocateMemory(16384, MemoryProtectionFlags.PAGE_READWRITE, GClass14.MemoryAllocationType.MEM_COMMIT, -1L).ToInt64();
+        messageHandler.method_8(fileVersion, (ulong)gclass14_0.GetMainModuleBaseAddress(), allocatedMemory, punaniString, Directory.GetCurrentDirectory() + "\\", new Action(method_2));
     }
 
     // Token: 0x06000004 RID: 4 RVA: 0x000020EC File Offset: 0x000002EC
@@ -73,7 +72,7 @@ public class WardenController
     {
         GClass5 gclass = new GClass5(this.gclass14_0, this.messageHandler);
         gclass.method_1();
-        gclass.method_0(this.ulong_0);
+        gclass.method_0(this.allocatedMemory);
         for (int i = 0; i < this.messageHandler.Byte_1.Length; i++)
         {
             this.messageHandler.Byte_1[i] = 0;
@@ -153,7 +152,7 @@ public class WardenController
     private MessageHandler messageHandler;
 
     // Token: 0x04000006 RID: 6
-    private ulong ulong_0;
+    private ulong allocatedMemory;
 
     // Token: 0x04000007 RID: 7
     private Action action_0;
