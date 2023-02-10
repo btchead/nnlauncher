@@ -11,7 +11,7 @@ public class GClass9
 	}
 
 	// Token: 0x060000D6 RID: 214 RVA: 0x00004800 File Offset: 0x00002A00
-	public static bool smethod_1(GClass10 gclass10_0, Server gclass12_0, ClientServerMessageFlags genum0_0)
+	public static bool smethod_1(BinaryReaderWrapper gclass10_0, Server gclass12_0, ClientServerMessageFlags genum0_0)
 	{
 		try
 		{
@@ -45,5 +45,5 @@ public class GClass9
 
 	// Token: 0x02000015 RID: 21
 	// (Invoke) Token: 0x060000DC RID: 220
-	public delegate void GDelegate0(GClass10 packet, Server server);
+	public delegate void GDelegate0(BinaryReaderWrapper packet, Server server);
 }

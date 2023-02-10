@@ -153,7 +153,7 @@ public class Server
                 }
                 else
                 {
-                    GClass10 gclass = new GClass10(this.buffer, this.buffer_2, "test", this.byte_0);
+                    BinaryReaderWrapper gclass = new BinaryReaderWrapper(this.buffer, this.buffer_2, "test", this.byte_0);
                     GClass9.smethod_1(gclass, this, gclass.GEnum0_0);
                     this.buffer_2 = new byte[0];
                     this.buffer = new byte[4];

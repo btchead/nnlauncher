@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 
 // Token: 0x02000017 RID: 23
-public class GClass10
+public class BinaryReaderWrapper
 {
 	// Token: 0x1700000A RID: 10
 	// (get) Token: 0x060000DF RID: 223 RVA: 0x000025C1 File Offset: 0x000007C1
@@ -26,7 +26,7 @@ public class GClass10
 	}
 
 	// Token: 0x060000E1 RID: 225 RVA: 0x00004854 File Offset: 0x00002A54
-	public GClass10(byte[] byte_0, byte[] byte_1, string string_0, byte[] byte_2)
+	public BinaryReaderWrapper(byte[] byte_0, byte[] byte_1, string string_0, byte[] byte_2)
 	{
 		this.binaryReader_0 = new BinaryReader(new MemoryStream(byte_1));
 		uint num = BitConverter.ToUInt32(byte_0, 0);
