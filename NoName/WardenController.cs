@@ -12,7 +12,7 @@ public class WardenController
     {
         this.gclass14_0 = gclass14_1;
         this.messageHandler = new MessageHandler(server);
-        this.gclass4_0 = new GClass4(gclass14_1, this.messageHandler);
+        this.gclass4_0 = new MemoryHandlerCommunicator(gclass14_1, this.messageHandler);
         this.wardenScanner = new WardenScanner(gclass14_1, this.messageHandler);
         this.messageHandler.Action_0 = new Action(this.method_3);
     }
@@ -63,7 +63,7 @@ public class WardenController
     // Token: 0x06000006 RID: 6 RVA: 0x00002C94 File Offset: 0x00000E94
     public void method_4()
     {
-        GClass4 gclass = new GClass4(this.gclass14_0, this.messageHandler);
+        MemoryHandlerCommunicator gclass = new MemoryHandlerCommunicator(this.gclass14_0, this.messageHandler);
         gclass.method_0(this.GetMachineGUID());
     }
 
@@ -143,7 +143,7 @@ public class WardenController
     public ProcessMemoryHandler gclass14_0;
 
     // Token: 0x04000002 RID: 2
-    private GClass4 gclass4_0;
+    private MemoryHandlerCommunicator gclass4_0;
 
     // Token: 0x04000003 RID: 3
     private WardenScanner wardenScanner;

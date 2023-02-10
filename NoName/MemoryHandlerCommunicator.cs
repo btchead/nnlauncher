@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 using System.Threading;
 
 // Token: 0x0200000B RID: 11
-public class GClass4
+public class MemoryHandlerCommunicator
 {
 	// Token: 0x06000089 RID: 137 RVA: 0x000024E0 File Offset: 0x000006E0
-	public GClass4(ProcessMemoryHandler gclass14_1, MessageHandler gclass2_1)
+	public MemoryHandlerCommunicator(ProcessMemoryHandler gclass14_1, MessageHandler gclass2_1)
 	{
 		this.gclass14_0 = gclass14_1;
 		this.gclass2_0 = gclass2_1;
@@ -18,7 +18,7 @@ public class GClass4
 	// Token: 0x0600008A RID: 138 RVA: 0x000039B0 File Offset: 0x00001BB0
 	public void method_0(string string_0)
 	{
-		GClass4.Class9 @class = new GClass4.Class9();
+		MemoryHandlerCommunicator.Class9 @class = new MemoryHandlerCommunicator.Class9();
 		@class.gclass4_0 = this;
 		long[] array = this.method_1();
 		@class.long_0 = array[0] & -4096L;
@@ -167,7 +167,7 @@ public class GClass4
 		}
 
 		// Token: 0x04000023 RID: 35
-		public GClass4 gclass4_0;
+		public MemoryHandlerCommunicator gclass4_0;
 
 		// Token: 0x04000024 RID: 36
 		public long long_0;
