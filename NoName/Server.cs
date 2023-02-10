@@ -87,7 +87,7 @@ public class Server
         {
             return;
         }
-        byte[] messageBytes = messageMemoryStream.method_0(this.byte_0);
+        byte[] messageBytes = messageMemoryStream.ReadBytes(this.byte_0);
         try
         {
             this.openedTcpStream.BeginWrite(messageBytes, 0, messageBytes.Length, new AsyncCallback(StreamWriteEndCallback), openedTcpStream);

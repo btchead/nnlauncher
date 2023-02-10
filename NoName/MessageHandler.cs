@@ -114,7 +114,7 @@ public class MessageHandler
             return false;
         }
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_KEY);
-        messageMemoryStream.mWriteByte(1);
+        messageMemoryStream.WriteByte(1);
         server.WriteMemoryStream(messageMemoryStream, false, false);
         return true;
     }
@@ -128,8 +128,8 @@ public class MessageHandler
     public bool SendWardenUploadMessage(byte[] uploadData)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_WARDEN_UPLOAD);
-        messageMemoryStream.method_4(uploadData.Length);
-        messageMemoryStream.method_15(uploadData);
+        messageMemoryStream.WriteInt32(uploadData.Length);
+        messageMemoryStream.WriteBytes(uploadData);
         server.WriteMemoryStream(messageMemoryStream, false, false);
         return false;
     }
@@ -138,18 +138,18 @@ public class MessageHandler
     public bool SendClientRequestNeedlePayloadMsg(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0, string string_1)
     {
         MessageMemoryStream gclass = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_NEEDLE_PAYLOAD);
-        gclass.method_9(ulong_0);
-        gclass.method_2((sbyte)long_0.Length);
+        gclass.WriteUInt64(ulong_0);
+        gclass.WriteSByte((sbyte)long_0.Length);
         for (int i = 0; i < long_0.Length; i++)
         {
-            gclass.method_9((ulong)long_0[i]);
+            gclass.WriteUInt64((ulong)long_0[i]);
         }
-        gclass.method_8((uint)byte_0.Length);
-        gclass.method_15(byte_0);
-        gclass.method_7((ushort)string_0.Length);
-        gclass.method_14(string_0, string_0.Length);
-        gclass.method_7((ushort)string_1.Length);
-        gclass.method_14(string_1, string_1.Length);
+        gclass.WriteUInt32((uint)byte_0.Length);
+        gclass.WriteBytes(byte_0);
+        gclass.WriteUInt16((ushort)string_0.Length);
+        gclass.WriteString(string_0, string_0.Length);
+        gclass.WriteUInt16((ushort)string_1.Length);
+        gclass.WriteString(string_1, string_1.Length);
         server.WriteMemoryStream(gclass, false, false);
         return true;
     }
@@ -158,16 +158,16 @@ public class MessageHandler
     public bool SendClientRequestHookPayloadMsg(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0)
     {
         MessageMemoryStream gclass = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_HOOK_PAYLOAD);
-        gclass.method_9(ulong_0);
-        gclass.method_2((sbyte)long_0.Length);
+        gclass.WriteUInt64(ulong_0);
+        gclass.WriteSByte((sbyte)long_0.Length);
         for (int i = 0; i < long_0.Length; i++)
         {
-            gclass.method_9((ulong)long_0[i]);
+            gclass.WriteUInt64((ulong)long_0[i]);
         }
-        gclass.method_8((uint)byte_0.Length);
-        gclass.method_15(byte_0);
-        gclass.method_7((ushort)string_0.Length);
-        gclass.method_14(string_0, string_0.Length);
+        gclass.WriteUInt32((uint)byte_0.Length);
+        gclass.WriteBytes(byte_0);
+        gclass.WriteUInt16((ushort)string_0.Length);
+        gclass.WriteString(string_0, string_0.Length);
         this.server.WriteMemoryStream(gclass, false, false);
         return true;
     }

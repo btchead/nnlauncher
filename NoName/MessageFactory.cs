@@ -7,10 +7,10 @@ public class MessageFactory
     public static MessageMemoryStream CreateClientAuthMsg(string string_0, string string_1)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_AUTH);
-        messageMemoryStream.method_15(new byte[] { 7, 1 });
-        messageMemoryStream.method_14(string_0, 32);
-        messageMemoryStream.method_7(105);
-        messageMemoryStream.method_14(string_1, 32);
+        messageMemoryStream.WriteBytes(new byte[] { 7, 1 });
+        messageMemoryStream.WriteString(string_0, 32);
+        messageMemoryStream.WriteUInt16(105);
+        messageMemoryStream.WriteString(string_1, 32);
         return messageMemoryStream;
     }
 
@@ -24,11 +24,11 @@ public class MessageFactory
     public static MessageMemoryStream CreateClientRequestOffsetsMsg(string string_0, ulong ulong_0, string string_1)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_OFFSETS);
-        messageMemoryStream.method_7((ushort)string_0.Length);
-        messageMemoryStream.method_14(string_0, string_0.Length);
-        messageMemoryStream.method_9(ulong_0);
-        messageMemoryStream.method_7((ushort)string_1.Length);
-        messageMemoryStream.method_14(string_1, string_1.Length);
+        messageMemoryStream.WriteUInt16((ushort)string_0.Length);
+        messageMemoryStream.WriteString(string_0, string_0.Length);
+        messageMemoryStream.WriteUInt64(ulong_0);
+        messageMemoryStream.WriteUInt16((ushort)string_1.Length);
+        messageMemoryStream.WriteString(string_1, string_1.Length);
         return messageMemoryStream;
     }
 
@@ -36,8 +36,8 @@ public class MessageFactory
     public static MessageMemoryStream CreateClientRequestToolOffsetsMsg(string string_0)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_TOOL_OFFSETS);
-        messageMemoryStream.method_7((ushort)string_0.Length);
-        messageMemoryStream.method_14(string_0, string_0.Length);
+        messageMemoryStream.WriteUInt16((ushort)string_0.Length);
+        messageMemoryStream.WriteString(string_0, string_0.Length);
         return messageMemoryStream;
     }
 
@@ -45,14 +45,14 @@ public class MessageFactory
     public static MessageMemoryStream CreateClientRequestPayloadMsg(string fileVersion, ulong moduleBaseAddress, ulong allocatedMemory, string punaniString, string path)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQEUEST_APAYLOAD);
-        messageMemoryStream.method_7((ushort)fileVersion.Length);
-        messageMemoryStream.method_14(fileVersion, fileVersion.Length);
-        messageMemoryStream.method_9(moduleBaseAddress);
-        messageMemoryStream.method_9(allocatedMemory);
-        messageMemoryStream.method_7((ushort)punaniString.Length);
-        messageMemoryStream.method_14(punaniString, punaniString.Length);
-        messageMemoryStream.method_7((ushort)path.Length);
-        messageMemoryStream.method_14(path, path.Length);
+        messageMemoryStream.WriteUInt16((ushort)fileVersion.Length);
+        messageMemoryStream.WriteString(fileVersion, fileVersion.Length);
+        messageMemoryStream.WriteUInt64(moduleBaseAddress);
+        messageMemoryStream.WriteUInt64(allocatedMemory);
+        messageMemoryStream.WriteUInt16((ushort)punaniString.Length);
+        messageMemoryStream.WriteString(punaniString, punaniString.Length);
+        messageMemoryStream.WriteUInt16((ushort)path.Length);
+        messageMemoryStream.WriteString(path, path.Length);
         return messageMemoryStream;
     }
 
@@ -61,12 +61,12 @@ public class MessageFactory
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_UPLOAD_GAMEMODULE);
         ushort num = (ushort)string_0.Length;
-        messageMemoryStream.method_7(num);
-        messageMemoryStream.method_14(string_0, (int)num);
-        messageMemoryStream.method_4(byte_0.Length);
-        messageMemoryStream.method_4(int_0);
-        messageMemoryStream.method_4(int_1);
-        messageMemoryStream.method_15(byte_0);
+        messageMemoryStream.WriteUInt16(num);
+        messageMemoryStream.WriteString(string_0, (int)num);
+        messageMemoryStream.WriteInt32(byte_0.Length);
+        messageMemoryStream.WriteInt32(int_0);
+        messageMemoryStream.WriteInt32(int_1);
+        messageMemoryStream.WriteBytes(byte_0);
         return messageMemoryStream;
     }
 
@@ -75,8 +75,8 @@ public class MessageFactory
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_SCRIPTS);
         ushort num = (ushort)string_0.Length;
-        messageMemoryStream.method_7(num);
-        messageMemoryStream.method_14(string_0, (int)num);
+        messageMemoryStream.WriteUInt16(num);
+        messageMemoryStream.WriteString(string_0, (int)num);
         return messageMemoryStream;
     }
 
@@ -84,7 +84,7 @@ public class MessageFactory
     public static MessageMemoryStream CreateClientRequestDownloadScriptMsg(uint uint_0)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_DOWNLOAD_SCRIPT_REQUEST);
-        messageMemoryStream.method_8(uint_0);
+        messageMemoryStream.WriteUInt32(uint_0);
         return messageMemoryStream;
     }
 }
