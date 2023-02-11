@@ -4,24 +4,21 @@ using System.IO;
 using System.Threading;
 using Microsoft.Win32;
 
-// Token: 0x02000002 RID: 2
 public class WardenController
 {
-    // Token: 0x06000001 RID: 1 RVA: 0x00002AAC File Offset: 0x00000CAC
     public WardenController(ProcessMemoryHandler gclass14_1, Server server = null)
     {
-        this.gclass14_0 = gclass14_1;
-        this.messageHandler = new MessageHandler(server);
-        this.gclass4_0 = new MemoryHandlerCommunicator(gclass14_1, this.messageHandler);
-        this.wardenScanner = new WardenScannerService(gclass14_1, this.messageHandler);
-        this.messageHandler.Action_0 = new Action(this.method_3);
+        gclass14_0 = gclass14_1;
+        messageHandler = new MessageHandler(server);
+        gclass4_0 = new MemoryHandlerCommunicator(gclass14_1, messageHandler);
+        wardenScanner = new WardenScannerService(gclass14_1, messageHandler);
+        messageHandler.Action_0 = new Action(method_3);
     }
 
-    // Token: 0x06000002 RID: 2 RVA: 0x00002B10 File Offset: 0x00000D10
     public void method_0(Action action_1)
     {
-        string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
-        this.messageHandler.SendClientRequestToolOffsetsMessage(fileVersion, action_1);
+        string fileVersion = gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
+        messageHandler.SendClientRequestToolOffsetsMessage(fileVersion, action_1);
     }
 
     public void method_1(string punaniString, Action callback)
@@ -32,20 +29,18 @@ public class WardenController
         messageHandler.SendClientRequestPayloadMessage(fileVersion, (ulong)gclass14_0.GetMainModuleBaseAddress(), allocatedMemory, punaniString, Directory.GetCurrentDirectory() + "\\", new Action(method_2));
     }
 
-    // Token: 0x06000004 RID: 4 RVA: 0x000020EC File Offset: 0x000002EC
     public void method_2()
     {
-        if (this.messageHandler.List_0 != null && this.messageHandler.Byte_0 != null)
+        if (messageHandler.List_0 != null && messageHandler.Byte_0 != null)
         {
-            this.action_0();
+            action_0();
         }
     }
 
-    // Token: 0x06000005 RID: 5 RVA: 0x00002BE0 File Offset: 0x00000DE0
     public void method_3()
     {
-        string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
-        byte[] moduleBytes = this.gclass14_0.method_5(this.gclass14_0.process.MainModule.BaseAddress, this.gclass14_0.process.MainModule.ModuleMemorySize);
+        string fileVersion = gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
+        byte[] moduleBytes = gclass14_0.method_5(gclass14_0.process.MainModule.BaseAddress, gclass14_0.process.MainModule.ModuleMemorySize);
         int num = 65536;
         for (int i = 0; i < moduleBytes.Length; i += num)
         {
@@ -56,65 +51,57 @@ public class WardenController
             }
             byte[] chunk = new byte[num2];
             Array.Copy(moduleBytes, i, chunk, 0, num2);
-            this.messageHandler.WriteMemoryStreamToServer(MessageFactory.CreateClientUploadGameModuleMessageStream(fileVersion, chunk, moduleBytes.Length, i));
+            messageHandler.WriteMemoryStreamToServer(MessageFactory.CreateClientUploadGameModuleMessageStream(fileVersion, chunk, moduleBytes.Length, i));
         }
     }
 
-    // Token: 0x06000006 RID: 6 RVA: 0x00002C94 File Offset: 0x00000E94
     public void method_4()
     {
-        MemoryHandlerCommunicator gclass = new MemoryHandlerCommunicator(this.gclass14_0, this.messageHandler);
-        gclass.method_0(this.GetMachineGUID());
+        MemoryHandlerCommunicator gclass = new MemoryHandlerCommunicator(gclass14_0, messageHandler);
+        gclass.method_0(GetMachineGUID());
     }
 
-    // Token: 0x06000007 RID: 7 RVA: 0x00002CC0 File Offset: 0x00000EC0
     public void method_5()
     {
-        GClass5 gclass = new GClass5(this.gclass14_0, this.messageHandler);
+        GClass5 gclass = new GClass5(gclass14_0, messageHandler);
         gclass.method_1();
-        gclass.method_0(this.allocatedMemory);
-        for (int i = 0; i < this.messageHandler.Byte_1.Length; i++)
+        gclass.method_0(allocatedMemory);
+        for (int i = 0; i < messageHandler.Byte_1.Length; i++)
         {
-            this.messageHandler.Byte_1[i] = 0;
+            messageHandler.Byte_1[i] = 0;
         }
-        for (int j = 0; j < this.messageHandler.Byte_0.Length; j++)
+        for (int j = 0; j < messageHandler.Byte_0.Length; j++)
         {
-            this.messageHandler.Byte_0[j] = 0;
+            messageHandler.Byte_0[j] = 0;
         }
     }
 
-    // Token: 0x06000008 RID: 8 RVA: 0x00002113 File Offset: 0x00000313
     public void StartWardenScanningThread()
     {
         Thread wardenThread = new Thread(new ThreadStart(wardenScanner.StartWardenScanning));
         wardenThread.Start();
     }
 
-    // Token: 0x06000009 RID: 9 RVA: 0x00002130 File Offset: 0x00000330
     public void DisableWardenScanning()
     {
         wardenScanner.DisableScanning();
     }
 
-    // Token: 0x0600000B RID: 11 RVA: 0x0000213F File Offset: 0x0000033F
     public string method_9()
     {
-        return this.gclass14_0.method_9((IntPtr)(this.gclass14_0.GetMainModuleBaseAddress() + (long)this.messageHandler.List_0[46]), 32);
+        return gclass14_0.method_9((IntPtr)(gclass14_0.GetMainModuleBaseAddress() + (long)messageHandler.List_0[46]), 32);
     }
 
-    // Token: 0x0600000C RID: 12 RVA: 0x00002171 File Offset: 0x00000371
     public void SuspendProcess()
     {
-        KernelAPI.NtSuspendProcess(this.gclass14_0.processHandle);
+        KernelAPI.NtSuspendProcess(gclass14_0.processHandle);
     }
 
-    // Token: 0x0600000D RID: 13 RVA: 0x00002183 File Offset: 0x00000383
     public void ResumeProcess()
     {
-        KernelAPI.NtResumeProcess(this.gclass14_0.processHandle);
+        KernelAPI.NtResumeProcess(gclass14_0.processHandle);
     }
 
-    // Token: 0x0600000E RID: 14 RVA: 0x00002D40 File Offset: 0x00000F40
     private string GetMachineGUID()
     {
         string text = "SOFTWARE\\Microsoft\\Cryptography";
@@ -139,21 +126,15 @@ public class WardenController
         return text3;
     }
 
-    // Token: 0x04000001 RID: 1
     public ProcessMemoryHandler gclass14_0;
 
-    // Token: 0x04000002 RID: 2
     private MemoryHandlerCommunicator gclass4_0;
 
-    // Token: 0x04000003 RID: 3
     private WardenScannerService wardenScanner;
 
-    // Token: 0x04000005 RID: 5
     private MessageHandler messageHandler;
 
-    // Token: 0x04000006 RID: 6
     private ulong allocatedMemory;
 
-    // Token: 0x04000007 RID: 7
     private Action action_0;
 }
