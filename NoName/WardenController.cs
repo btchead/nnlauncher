@@ -56,7 +56,7 @@ public class WardenController
             }
             byte[] array2 = new byte[num2];
             Array.Copy(array, i, array2, 0, num2);
-            this.messageHandler.WriteMemoryStreamToServer(MessageFactory.CreateClientUploadGameModuleMsg(fileVersion, array2, array.Length, i));
+            this.messageHandler.WriteMemoryStreamToServer(MessageFactory.CreateClientUploadGameModuleMessageStream(fileVersion, chunk, moduleBytes.Length, i));
         }
     }
 
