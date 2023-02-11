@@ -1,23 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Threading;
 
 public class Server
 {
-    public object Object_0
-    {
-        get
-        {
-            return object_0;
-        }
-        set
-        {
-            object_0 = value;
-        }
-    }
-
     public Server(Action onConnectionLost = null)
     {
         if (!IsMessageDelegatesSetup)
@@ -155,19 +142,6 @@ public class Server
     public byte[] byte_0;
 
     public byte byte_1;
-
-    private object object_0;
-
-    private byte[] byte_2 = new byte[]
-    {
-        6, 244, 101, 122, 80, 234, 107, 104, 74, 173,
-        37, 125, 1, 238, 121, 121, 5, 235, 103, 60,
-        91, 244, 117, 127, 67, 250, 126, 62, 82, 175,
-        124, 122, 0, 251, 39, 97, 67, 227, 115, 124,
-        86, 243, 117, 123, 70, 232, 107, 58, 88, 252,
-        123, 127, 81, byte.MaxValue, 104, 109, 29, 246, 127, 96,
-        92, 247
-    };
 
     public int headerSize;
 
