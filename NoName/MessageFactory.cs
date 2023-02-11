@@ -52,6 +52,48 @@ public class MessageFactory
         return messageMemoryStream;
     }
 
+    public static MessageMemoryStream CreateClientWardenUploadMessageStream(byte[] uploadData)
+    {
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_WARDEN_UPLOAD);
+        messageMemoryStream.WriteInt32(uploadData.Length);
+        messageMemoryStream.WriteBytes(uploadData);
+        return messageMemoryStream;
+    }
+
+    public static MessageMemoryStream CreateClientRequestNeedlePayload(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0, string string_1)
+    {
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_NEEDLE_PAYLOAD);
+        messageMemoryStream.WriteUInt64(ulong_0);
+        messageMemoryStream.WriteSByte((sbyte)long_0.Length);
+        for (int i = 0; i < long_0.Length; i++)
+        {
+            messageMemoryStream.WriteUInt64((ulong)long_0[i]);
+        }
+        messageMemoryStream.WriteUInt32((uint)byte_0.Length);
+        messageMemoryStream.WriteBytes(byte_0);
+        messageMemoryStream.WriteUInt16((ushort)string_0.Length);
+        messageMemoryStream.WriteString(string_0, string_0.Length);
+        messageMemoryStream.WriteUInt16((ushort)string_1.Length);
+        messageMemoryStream.WriteString(string_1, string_1.Length);
+        return messageMemoryStream;
+    }
+
+    public static MessageMemoryStream CreateClientRequestHookPayloadMessageStream(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0)
+    {
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_HOOK_PAYLOAD);
+        messageMemoryStream.WriteUInt64(ulong_0);
+        messageMemoryStream.WriteSByte((sbyte)long_0.Length);
+        for (int i = 0; i < long_0.Length; i++)
+        {
+            messageMemoryStream.WriteUInt64((ulong)long_0[i]);
+        }
+        messageMemoryStream.WriteUInt32((uint)byte_0.Length);
+        messageMemoryStream.WriteBytes(byte_0);
+        messageMemoryStream.WriteUInt16((ushort)string_0.Length);
+        messageMemoryStream.WriteString(string_0, string_0.Length);
+        return messageMemoryStream;
+    }
+
     public static MessageMemoryStream CreateClientUploadGameModuleMessageStream(string fileVersion, byte[] chunk, int length, int i)
     {
         MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_UPLOAD_GAMEMODULE);

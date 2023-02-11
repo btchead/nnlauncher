@@ -21,7 +21,7 @@ public class WardenController
     public void method_0(Action action_1)
     {
         string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
-        this.messageHandler.method_7(fileVersion, action_1);
+        this.messageHandler.SendClientRequestToolOffsetsMessage(fileVersion, action_1);
     }
 
     public void method_1(string punaniString, Action callback)
@@ -29,7 +29,7 @@ public class WardenController
         action_0 = callback;
         string fileVersion = gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
         allocatedMemory = (ulong)gclass14_0.AllocateMemory(16384, MemoryProtectionFlags.PAGE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L).ToInt64();
-        messageHandler.method_8(fileVersion, (ulong)gclass14_0.GetMainModuleBaseAddress(), allocatedMemory, punaniString, Directory.GetCurrentDirectory() + "\\", new Action(method_2));
+        messageHandler.SendClientRequestPayloadMessage(fileVersion, (ulong)gclass14_0.GetMainModuleBaseAddress(), allocatedMemory, punaniString, Directory.GetCurrentDirectory() + "\\", new Action(method_2));
     }
 
     // Token: 0x06000004 RID: 4 RVA: 0x000020EC File Offset: 0x000002EC
