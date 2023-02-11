@@ -13,25 +13,25 @@ internal class Application
     {
         Console.Title = GenerateRandomString();
 
-        WorldOfWarcraftProcessUtils wowProcessUtils = new WorldOfWarcraftProcessUtils();
+        Class6 class6 = new Class6();
 
         if (CheckLicenseFile() == true)
         {
             licenseKey = File.ReadAllText(licenseKeyFileName);
 
-            foreach (string processName in wowProcessUtils.wowProcessNames)
+            foreach (string processName in class6.wowProcessNames)
             {
-                wowProcessUtils.processList.AddRange(Process.GetProcessesByName(processName));
+                class6.processList.AddRange(Process.GetProcessesByName(processName));
             }
 
-            wowProcessUtils.maxProcessWaitTimestamp = DateTime.Now.AddSeconds(20.0);
-            wowProcessUtils.server = new Server(new Action(ConnectionLossRoutine));
+            class6.maxProcessWaitTimestamp = DateTime.Now.AddSeconds(20.0);
+            class6.server = new Server(new Action(ConnectionLossRoutine));
 
-            MessageHandler messageHandler = new MessageHandler(wowProcessUtils.server);
+            MessageHandler messageHandler = new MessageHandler(class6.server);
             if (messageHandler.SendKeyMessage())
             {
-                messageHandler.WaitForWorldOfWarcraft = new Action<object>(wowProcessUtils.WaitForWorldOfWarcraft);
-                wowProcessUtils.hasResumed = true;
+                messageHandler.Action_3 = new Action<object>(class6.method_0);
+                class6.hasResumed = true;
                 messageHandler.SendAuthMessage(licenseKey, GetMachineIdentifier());
                 Thread.Sleep(-1);
                 return;
@@ -155,13 +155,13 @@ internal class Application
     private static readonly string licenseKeyFileName = "license.txt";
 
     [CompilerGenerated]
-    private sealed class WorldOfWarcraftProcessUtils
+    private sealed class Class6
     {
-        internal void WaitForWorldOfWarcraft(object waitTime)
+        internal void method_0(object ushort_0)
         {
-            WaitTimeStruct waitTimeStruct;
-            waitTimeStruct.waitTime = (ushort)waitTime;
-            if (waitTimeStruct.waitTime == 0)
+            UnknownStruct_0 unknownStruct_0;
+            unknownStruct_0.ushort_0 = (ushort)ushort_0;
+            if (unknownStruct_0.ushort_0 == 0)
             {
                 Thread.Sleep(2000);
                 return;
@@ -191,7 +191,7 @@ internal class Application
                                 {
                                     wowProcess = processComparer.targetProcess;
                                 }
-                                method_1(processComparer.targetProcess, ref waitTimeStruct);
+                                method_1(processComparer.targetProcess, ref unknownStruct_0);
                                 flag = false;
                             }
                         }
@@ -206,18 +206,19 @@ internal class Application
             }
         }
 
-        internal void method_1(Process processInfo, ref WaitTimeStruct waitTimeStruct)
+        internal void method_1(Process processInfo, ref UnknownStruct_0 unkownStruct_0)
         {
             InjectionProcess class7 = new InjectionProcess
             {
-                worldOfWarcraftProcessUtils = this,
+                class6 = this,
                 process = processInfo
             };
             try
             {
-                class7.isInjectionCancelled = waitTimeStruct.waitTime == 2;
+                // Check for authFlag == 2, bad one is 0
+                class7.bool_0 = unkownStruct_0.ushort_0 == 2;
                 class7.wardenController = new WardenController(new ProcessMemoryHandler(class7.process), this.server);
-                if (class7.isInjectionCancelled)
+                if (class7.bool_0)
                 {
                     class7.wardenController.SuspendProcess();
                 }
@@ -246,9 +247,9 @@ internal class Application
 
     [CompilerGenerated]
     [StructLayout(LayoutKind.Auto)]
-    private struct WaitTimeStruct
+    private struct UnknownStruct_0
     {
-        public ushort waitTime;
+        public ushort ushort_0;
     }
 
     [CompilerGenerated]
@@ -256,11 +257,11 @@ internal class Application
     {
         internal void Inject()
         {
-            if (!isInjectionCancelled)
+            if (!bool_0)
             {
                 Thread.Sleep(5000);
                 wardenController.method_4();
-                worldOfWarcraftProcessUtils.IsInjected = true;
+                class6.IsInjected = true;
                 Console.WriteLine($"Injected into {process.ProcessName} {process.Id.ToString("X")}");
                 wardenController.StartWardenScanningThread();
                 return;
@@ -271,11 +272,11 @@ internal class Application
         internal void InjectWithResume()
         {
             wardenController.method_5();
-            worldOfWarcraftProcessUtils.IsInjected = true;
-            worldOfWarcraftProcessUtils.hasResumed = true;
+            class6.IsInjected = true;
+            class6.hasResumed = true;
             Console.WriteLine($"Injected into {process.ProcessName} {process.Id.ToString("X")}");
             wardenController.StartWardenScanningThread();
-            if (isInjectionCancelled)
+            if (bool_0)
             {
                 wardenController.ResumeProcess();
             }
@@ -283,11 +284,11 @@ internal class Application
 
         public Process process { get; set; }
 
-        public bool isInjectionCancelled { get; set; }
+        public bool bool_0 { get; set; }
 
         public WardenController wardenController { get; set; }
 
-        public WorldOfWarcraftProcessUtils worldOfWarcraftProcessUtils { get; set; }
+        public Class6 class6 { get; set; }
     }
 
     [CompilerGenerated]

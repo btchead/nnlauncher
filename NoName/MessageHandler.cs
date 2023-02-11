@@ -27,11 +27,11 @@ public class MessageHandler
         }
     }
 
-    public Action<object> WaitForWorldOfWarcraft
+    public Action<object> Action_3
     {
         set
         {
-            server.WaitForWorldOfWarcraft = value;
+            server.action_7 = value;
         }
     }
 

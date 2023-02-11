@@ -211,7 +211,7 @@ public class Server
 
     public Action action_6;
 
-    public Action<object> WaitForWorldOfWarcraft;
+    public Action<object> action_7;
 
     public Action<byte[], byte[]> action_8;
 }

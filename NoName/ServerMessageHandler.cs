@@ -11,9 +11,9 @@ public class ServerMessageHandler
 
 	public static void HandleServerAuthStatusMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
-		server.authorizationFlag = binaryReaderWrapper.ReadUInt16();
-		server.authorizationKey = binaryReaderWrapper.ReadBytes(16);
-		new Thread(new ParameterizedThreadStart(server.WaitForWorldOfWarcraft.Invoke)).Start(server.authorizationFlag);
+		server.ushort_1 = binaryReaderWrapper.ReadUInt16();
+		server.byte_7 = binaryReaderWrapper.ReadBytes(16);
+		new Thread(new ParameterizedThreadStart(server.action_7.Invoke)).Start(server.ushort_1);
 	}
 
 	public static void HandleServerWardenUploadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
