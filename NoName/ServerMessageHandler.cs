@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Threading;
 
-public class GClass6
+public class ServerMessageHandler
 {
-	public static void smethod_0(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerKeyMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		binaryReaderWrapper.ReadBytes(8);
 	}
 
-	public static void smethod_1(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerAuthStatusMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
-		server.ushort_1 = binaryReaderWrapper.ReadUInt16();
-		server.byte_7 = binaryReaderWrapper.ReadBytes(16);
-		new Thread(new ParameterizedThreadStart(server.WaitForWorldOfWarcraft.Invoke)).Start(server.ushort_1);
+		server.authorizationFlag = binaryReaderWrapper.ReadUInt16();
+		server.authorizationKey = binaryReaderWrapper.ReadBytes(16);
+		new Thread(new ParameterizedThreadStart(server.WaitForWorldOfWarcraft.Invoke)).Start(server.authorizationFlag);
 	}
 
-	public static void smethod_2(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerWardenUploadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		ConsoleColor consoleColor = (ConsoleColor)binaryReaderWrapper.ReadByte();
 		ushort num = binaryReaderWrapper.ReadUInt16();
@@ -27,18 +27,18 @@ public class GClass6
 		Console.ForegroundColor = foregroundColor;
 	}
 
-	public static void smethod_3(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerBroadcastMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
-		ConsoleColor consoleColor = (ConsoleColor)binaryReaderWrapper.ReadByte();
-		ushort num = binaryReaderWrapper.ReadUInt16();
-        string text = binaryReaderWrapper.ReadString((int)num);
+		ConsoleColor color = (ConsoleColor)binaryReaderWrapper.ReadByte();
+		ushort length = binaryReaderWrapper.ReadUInt16();
+        string message = binaryReaderWrapper.ReadString((int)length);
         ConsoleColor foregroundColor = Console.ForegroundColor;
-		Console.ForegroundColor = consoleColor;
-		Console.WriteLine(text);
+		Console.ForegroundColor = color;
+		Console.WriteLine(message);
 		Console.ForegroundColor = foregroundColor;
 	}
 
-	public static void smethod_4(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerPayloadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		int num = binaryReaderWrapper.ReadInt32();
 		server.byte_5 = binaryReaderWrapper.ReadBytes(num);
@@ -50,7 +50,7 @@ public class GClass6
 		}
 	}
 
-	public static void smethod_5(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerNeedlePayloadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		int num = binaryReaderWrapper.ReadInt32();
 		byte[] array = binaryReaderWrapper.ReadBytes(num);
@@ -61,7 +61,7 @@ public class GClass6
 		}
 	}
 
-	public static void smethod_6(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerHookPayloadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		int num = binaryReaderWrapper.ReadInt32();
 		byte[] array = binaryReaderWrapper.ReadBytes(num);
@@ -72,7 +72,7 @@ public class GClass6
 		}
 	}
 
-	public static void smethod_7(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerOffsetsMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		uint num = binaryReaderWrapper.ReadUInt32();
 		server.list_0 = new List<ulong>();
@@ -88,7 +88,7 @@ public class GClass6
 		}
 	}
 
-	public static void smethod_8(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerToolOffsetsMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		uint num = binaryReaderWrapper.ReadUInt32();
 		server.list_1 = new List<ulong>();
@@ -104,17 +104,14 @@ public class GClass6
 		}
 	}
 
-	public static void smethod_9(BinaryMessageReader binaryReaderWrapper, Server server)
+	public static void HandleServerRequestGameModuleMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		binaryReaderWrapper.ReadUInt32();
 		server.action_6();
 	}
 
-	public static void smethod_10(BinaryMessageReader binaryReaderWrapper, Server server)
-	{
-	}
-
-	public static void smethod_11(BinaryMessageReader binaryReaderWrapper, Server server)
+    [Obsolete("Method usage is unknown")]
+	public static void HandleServerUnknownMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
 		uint num = binaryReaderWrapper.ReadUInt32();
 		byte[] array = binaryReaderWrapper.ReadBytes(16);
