@@ -79,7 +79,7 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="WardenController.cs" />
-    <Compile Include="BinaryReaderWrapper.cs" />
+    <Compile Include="BinaryMessageReader.cs" />
     <Compile Include="MessageMemoryStream.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="KernelAPI.cs" />
