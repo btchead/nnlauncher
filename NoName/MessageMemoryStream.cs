@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 public class MessageMemoryStream : BinaryWriter
@@ -17,44 +18,25 @@ public class MessageMemoryStream : BinaryWriter
 
     public byte[] ReadBytes()
     {
-        var header = GetHeader();
-        var message = GetMessage();
-        return ConcatenateArrays(header, message);
-    }
-
-    private byte[] GetHeader()
-    {
-        var lengthBytes = BitConverter.GetBytes(MessageLength);
-        var flagBytes = BitConverter.GetBytes((ushort)messageFlag);
-
-        var header = new byte[4];
-        header[0] = flagBytes[0];
+        byte[] header = new byte[4];
+        byte[] lengthBytes = BitConverter.GetBytes(MessageLength);
+        byte[] messageFlagBytes = BitConverter.GetBytes((ushort)this.messageFlag);
+        header[0] = messageFlagBytes[0];
         header[1] = lengthBytes[0];
         header[2] = lengthBytes[1];
         header[3] = lengthBytes[2];
-
-        return header;
-    }
-
-    private byte[] GetMessage()
-    {
-        stream.Seek(0, SeekOrigin.Begin);
-        var message = new byte[MessageLength];
-        int i = 0;
-        while (i < stream.Length)
+        byte[] content = new byte[MessageLength - 4];
+        this.Seek(0, SeekOrigin.Begin);
+        int index = 0;
+        while ((long)index < (long)((ulong)MessageLength - 4))
         {
-            message[i] = (byte)stream.ReadByte();
-            i++;
+            content[index] = (byte)this.BaseStream.ReadByte();
+            index++;
         }
-        return message;
-    }
-
-    private byte[] ConcatenateArrays(byte[] first, byte[] second)
-    {
-        var result = new byte[first.Length + second.Length];
-        first.CopyTo(result, 0);
-        second.CopyTo(result, first.Length);
-        return result;
+        List<byte> result = new List<byte>(header.Length + content.Length);
+        result.AddRange(header);
+        result.AddRange(content);
+        return result.ToArray();
     }
 
     public void WriteString(string value, int maxLength)
