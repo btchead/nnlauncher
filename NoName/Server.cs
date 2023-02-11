@@ -40,7 +40,7 @@ public class Server
             messageBuffer = new byte[0];
             headerBuffer = new byte[4];
             headerSize = 4;
-            new Thread(new ThreadStart(ReadMessageHeaderAsync)).Start();
+            new Thread(ReadMessageHeaderAsync).Start();
             return true;
         }
         catch (Exception ex)
