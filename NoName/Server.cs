@@ -61,13 +61,10 @@ public class Server
     public bool ValidateMessageHeader()
     {
         messageSize = (BitConverter.ToInt32(headerBuffer, 0) >> 8) - 4;
-        if (messageSize > 0 && messageSize <= 16777215)
-        {
-            messageBuffer = new byte[messageSize];
-            return true;
+        bool isValidMessageSize = messageSize > 0 && messageSize <= 16777215;
+        messageBuffer = isValidMessageSize ? new byte[messageSize] : new byte[0];
+        return isValidMessageSize;
         }
-        return false;
-    }
 
     public void WriteMemoryStream(MessageMemoryStream messageMemoryStream, bool optFlag_1 = false, bool optFlag_2 = false)
     {
