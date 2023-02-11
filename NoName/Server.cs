@@ -30,7 +30,6 @@ public class Server
 
     public bool OpenStream()
     {
-        bool isConnected;
         try
         {
             Console.WriteLine("Connecting...");
@@ -41,6 +40,8 @@ public class Server
             headerBuffer = new byte[4];
             headerSize = 4;
             new Thread(ReadMessageHeaderAsync).Start();
+
+            Console.WriteLine("Connected.");
             return true;
         }
         catch (Exception ex)
@@ -48,9 +49,8 @@ public class Server
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Error: " + ex.Message);
             Console.ForegroundColor = ConsoleColor.Gray;
-            isConnected = false;
+            return false;
         }
-        return isConnected;
     }
 
     private void ReadMessageHeaderAsync()
