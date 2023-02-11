@@ -7,10 +7,10 @@ public class Server
 {
     public Server(Action onConnectionLost = null)
     {
-        if (!IsMessageDelegatesSetup)
+        if (!IsMessageHandlersSetup)
         {
-            MessageFlagDelegateMapper.SetupMessageDelegates();
-            IsMessageDelegatesSetup = true;
+            MessageHandlerSetup.SetupMessageHandlers();
+            IsMessageHandlersSetup = true;
         }
         this.onConnectionLost = onConnectionLost;
     }
@@ -156,7 +156,7 @@ public class Server
     private void ProcessCompleteMessage()
     {
         BinaryMessageReader binaryMessageReader = new BinaryMessageReader(headerBuffer, messageBuffer);
-        GClass9.smethod_1(binaryMessageReader, this, binaryMessageReader.ClientServerMessageFlag);
+        MessageProcessor.ProcessMessage(binaryMessageReader, this, binaryMessageReader.ClientServerMessageFlag);
         messageBuffer = new byte[0];
         headerBuffer = new byte[4];
         headerSize = 4;
@@ -189,7 +189,7 @@ public class Server
 
     public byte[] byte_6;
 
-    private static bool IsMessageDelegatesSetup;
+    private static bool IsMessageHandlersSetup;
 
     public uint uint_0;
 
