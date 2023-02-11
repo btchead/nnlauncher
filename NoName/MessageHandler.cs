@@ -110,6 +110,5 @@ public class MessageHandler
     
     public byte[] Byte_0 => server.byte_5;
 
-    [Obsolete("This field is never used in original source")]
     public byte[] Byte_1 => server.byte_6;
 }
