@@ -45,17 +45,17 @@ public class WardenController
     public void method_3()
     {
         string fileVersion = this.gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
-        byte[] array = this.gclass14_0.method_5(this.gclass14_0.process.MainModule.BaseAddress, this.gclass14_0.process.MainModule.ModuleMemorySize);
+        byte[] moduleBytes = this.gclass14_0.method_5(this.gclass14_0.process.MainModule.BaseAddress, this.gclass14_0.process.MainModule.ModuleMemorySize);
         int num = 65536;
-        for (int i = 0; i < array.Length; i += num)
+        for (int i = 0; i < moduleBytes.Length; i += num)
         {
             int num2 = num;
-            if (i + num2 > array.Length)
+            if (i + num2 > moduleBytes.Length)
             {
-                num2 = array.Length - i;
+                num2 = moduleBytes.Length - i;
             }
-            byte[] array2 = new byte[num2];
-            Array.Copy(array, i, array2, 0, num2);
+            byte[] chunk = new byte[num2];
+            Array.Copy(moduleBytes, i, chunk, 0, num2);
             this.messageHandler.WriteMemoryStreamToServer(MessageFactory.CreateClientUploadGameModuleMessageStream(fileVersion, chunk, moduleBytes.Length, i));
         }
     }
