@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-// Token: 0x02000009 RID: 9
 public class MessageHandler
 {
     public Action Action_0
@@ -103,8 +102,14 @@ public class MessageHandler
     }
 
     private Server server;
+    
+    [Obsolete("This field is never used in original source")]
     public ushort UInt16_0 => server.ushort_1;
+    
     public List<ulong> List_0 => server.list_1;
+    
     public byte[] Byte_0 => server.byte_5;
+
+    [Obsolete("This field is never used in original source")]
     public byte[] Byte_1 => server.byte_6;
 }
