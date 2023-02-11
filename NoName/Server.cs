@@ -136,8 +136,8 @@ public class Server
                 }
                 else
                 {
-                    BinaryReaderWrapper gclass = new BinaryReaderWrapper(headerBuffer, messageBuffer, "test", byte_0);
-                    GClass9.smethod_1(gclass, this, gclass.messageFlagsEnum);
+                    BinaryMessageReader gclass = new BinaryMessageReader(headerBuffer, messageBuffer);
+                    GClass9.smethod_1(gclass, this, gclass.ClientServerMessageFlag);
                     messageBuffer = new byte[0];
                     headerBuffer = new byte[4];
                     headerSize = 4;

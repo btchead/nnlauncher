@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 public class GClass9
 {
-	public static void smethod_0(ClientServerMessageFlags messageFlag, GDelegate0 gdelegate0_0)
+	public static void smethod_0(ClientServerMessageFlags messageFlag, MessageHandlerDelegate gdelegate0_0)
 	{
 		dictionary_0[messageFlag] = gdelegate0_0;
 	}
 
-	public static bool smethod_1(BinaryReaderWrapper gclass10_0, Server gclass12_0, ClientServerMessageFlags genum0_0)
+	public static bool smethod_1(BinaryMessageReader gclass10_0, Server gclass12_0, ClientServerMessageFlags messageFlag)
 	{
 		try
 		{
-			if (dictionary_0.ContainsKey(genum0_0))
+			if (dictionary_0.ContainsKey(messageFlag))
 			{
-				dictionary_0[genum0_0](gclass10_0, gclass12_0);
+				dictionary_0[messageFlag](gclass10_0, gclass12_0);
 				return true;
 			}
 		}
@@ -25,7 +25,7 @@ public class GClass9
 		return false;
 	}
 
-	public static Dictionary<ClientServerMessageFlags, GDelegate0> dictionary_0 = new Dictionary<ClientServerMessageFlags, GDelegate0>();
+	public static Dictionary<ClientServerMessageFlags, MessageHandlerDelegate> dictionary_0 = new Dictionary<ClientServerMessageFlags, MessageHandlerDelegate>();
 
-	public delegate void GDelegate0(BinaryReaderWrapper packet, Server server);
+	public delegate void MessageHandlerDelegate(BinaryMessageReader packet, Server server);
 }
