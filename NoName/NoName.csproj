@@ -90,8 +90,8 @@
     <Compile Include="GClass5.cs" />
     <Compile Include="GClass6.cs" />
     <Compile Include="MessageFactory.cs" />
-    <Compile Include="MessageFlagDelegateMapper.cs" />
-    <Compile Include="GClass9.cs" />
+    <Compile Include="MessageHandlerSetup.cs" />
+    <Compile Include="MessageProcessor.cs" />
     <Compile Include="ClientServerMessageFlags.cs" />
     <Compile Include="LuaFunctions.cs" />
     <Compile Include="ThreadAccessFlags.cs" />
