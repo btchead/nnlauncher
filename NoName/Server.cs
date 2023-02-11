@@ -82,7 +82,6 @@ public class Server
         this.connectionStream.EndWrite(iasyncResult_0);
     }
 
-    [CompilerGenerated]
     private void ReadHeaderCallback(IAsyncResult asyncResult)
     {
         try
@@ -91,15 +90,33 @@ public class Server
             if (bytesRead < 1)
             {
                 CloseConnection();
+                return;
             }
-            else if (headerSize > 0)
+
+            if (headerSize > 0)
             {
+                ProcessHeaderBytes(bytesRead);
+            }
+            else
+            {
+                ProcessMessageBytes(bytesRead);
+            }
+        }
+        catch (Exception)
+        {
+            CloseConnection();
+        }
+    }
+
+    private void ProcessHeaderBytes(int bytesRead)
+    {
                 headerSize -= bytesRead;
+
                 if (headerSize == 0)
                 {
                     if (ValidateMessageHeader())
                     {
-                        connectionStream.BeginRead(messageBuffer, 0, messageSize, new AsyncCallback(ReadHeaderCallback), null);
+                BeginReadingMessage();
                     }
                     else
                     {
@@ -108,31 +125,42 @@ public class Server
                 }
                 else
                 {
-                    connectionStream.BeginRead(headerBuffer, headerBuffer.Length - headerSize, headerSize, new AsyncCallback(ReadHeaderCallback), null);
+            BeginReadingHeader();
                 }
             }
-            else
+
+    private void ProcessMessageBytes(int bytesRead)
             {
                 messageSize -= bytesRead;
-                if (messageSize != 0)
+
+        if (messageSize == 0)
                 {
-                    connectionStream.BeginRead(messageBuffer, messageBuffer.Length - messageSize, messageSize, new AsyncCallback(ReadHeaderCallback), null);
+            ProcessCompleteMessage();
                 }
                 else
                 {
-                    BinaryMessageReader gclass = new BinaryMessageReader(headerBuffer, messageBuffer);
-                    GClass9.smethod_1(gclass, this, gclass.ClientServerMessageFlag);
-                    messageBuffer = new byte[0];
-                    headerBuffer = new byte[4];
-                    headerSize = 4;
-                    connectionStream.BeginRead(headerBuffer, 0, headerSize, new AsyncCallback(ReadHeaderCallback), null);
+            BeginReadingMessage();
                 }
             }
+
+    private void BeginReadingHeader()
+    {
+        connectionStream.BeginRead(headerBuffer, headerBuffer.Length - headerSize, headerSize, new AsyncCallback(ReadHeaderCallback), null);
         }
-        catch (Exception)
+
+    private void BeginReadingMessage()
         {
-            CloseConnection();
+        connectionStream.BeginRead(messageBuffer, messageBuffer.Length - messageSize, messageSize, new AsyncCallback(ReadHeaderCallback), null);
         }
+
+    private void ProcessCompleteMessage()
+    {
+        BinaryMessageReader binaryMessageReader = new BinaryMessageReader(headerBuffer, messageBuffer);
+        GClass9.smethod_1(binaryMessageReader, this, binaryMessageReader.ClientServerMessageFlag);
+        messageBuffer = new byte[0];
+        headerBuffer = new byte[4];
+        headerSize = 4;
+        BeginReadingHeader();
     }
 
     public ulong ulong_0;
