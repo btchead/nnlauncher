@@ -10,7 +10,7 @@ public class MessageHandler
     {
         get
         {
-            return this.server.ushort_1;
+            return server.ushort_1;
         }
     }
 
@@ -20,7 +20,7 @@ public class MessageHandler
     {
         set
         {
-            this.server.action_6 = value;
+            server.action_6 = value;
         }
     }
 
@@ -30,7 +30,7 @@ public class MessageHandler
     {
         set
         {
-            this.server.action_5 = value;
+            server.action_5 = value;
         }
     }
 
@@ -40,7 +40,7 @@ public class MessageHandler
     {
         set
         {
-            this.server.action_4 = value;
+            server.action_4 = value;
         }
     }
 
@@ -50,14 +50,14 @@ public class MessageHandler
     {
         set
         {
-            this.server.WaitForWorldOfWarcraft = value;
+            server.WaitForWorldOfWarcraft = value;
         }
     }
 
     // Token: 0x0600006E RID: 110 RVA: 0x000023D7 File Offset: 0x000005D7
     public void WriteMemoryStreamToServer(MessageMemoryStream messageMemoryStream)
     {
-        this.server.WriteMemoryStream(messageMemoryStream, false, false);
+        server.WriteMemoryStream(messageMemoryStream, false, false);
     }
 
     // Token: 0x17000007 RID: 7
@@ -66,7 +66,7 @@ public class MessageHandler
     {
         get
         {
-            return this.server.list_1;
+            return server.list_1;
         }
     }
 
@@ -76,7 +76,7 @@ public class MessageHandler
     {
         get
         {
-            return this.server.byte_5;
+            return server.byte_5;
         }
     }
 
@@ -86,14 +86,14 @@ public class MessageHandler
     {
         get
         {
-            return this.server.byte_6;
+            return server.byte_6;
         }
     }
 
     // Token: 0x06000072 RID: 114 RVA: 0x0000240E File Offset: 0x0000060E
     public MessageHandler(Server serverInstance)
     {
-        this.server = serverInstance;
+        server = serverInstance;
     }
 
     // Token: 0x06000073 RID: 115 RVA: 0x00003690 File Offset: 0x00001890
@@ -103,15 +103,15 @@ public class MessageHandler
         {
             return false;
         }
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_KEY);
-        messageMemoryStream.WriteByte(1);
+        MessageMemoryStream messageMemoryStream = MessageFactory.CreateClientKeyMessageStream(1);
         server.WriteMemoryStream(messageMemoryStream, false, false);
         return true;
     }
 
     public void SendAuthMessage(string licenseKey, string machineIdentifier)
     {
-        WriteMemoryStreamToServer(MessageFactory.CreateClientAuthMsg(licenseKey, machineIdentifier));
+        MessageMemoryStream messageMemoryStream = MessageFactory.CreateClientAuthMessageStream(licenseKey, machineIdentifier);
+        server.WriteMemoryStream(messageMemoryStream, false, false);
     }
 
     // Token: 0x06000075 RID: 117 RVA: 0x000036CC File Offset: 0x000018CC
@@ -158,27 +158,27 @@ public class MessageHandler
         gclass.WriteBytes(byte_0);
         gclass.WriteUInt16((ushort)string_0.Length);
         gclass.WriteString(string_0, string_0.Length);
-        this.server.WriteMemoryStream(gclass, false, false);
+        server.WriteMemoryStream(gclass, false, false);
         return true;
     }
 
     // Token: 0x06000078 RID: 120 RVA: 0x0000242C File Offset: 0x0000062C
     public void method_6(string string_0, string string_1, ulong ulong_0, Action action_0)
     {
-        this.server.WriteMemoryStream(MessageFactory.CreateClientRequestOffsetsMsg(string_0, ulong_0, string_1), false, false);
-        this.server.action_1 = action_0;
+        server.WriteMemoryStream(MessageFactory.CreateClientRequestOffsetsMessageStream(string_0, ulong_0, string_1), false, false);
+        server.action_1 = action_0;
     }
 
     // Token: 0x06000079 RID: 121 RVA: 0x00002450 File Offset: 0x00000650
     public void method_7(string string_0, Action action_0)
     {
-        this.server.WriteMemoryStream(MessageFactory.CreateClientRequestToolOffsetsMsg(string_0), false, false);
-        this.server.action_2 = action_0;
+        server.WriteMemoryStream(MessageFactory.CreateClientRequestToolOffsetsMessageStream(string_0), false, false);
+        server.action_2 = action_0;
     }
 
     public void method_8(string fileVersion, ulong moduleBaseAddress, ulong allocatedMemory, string punaniString, string path, Action callback)
     {
-        server.WriteMemoryStream(MessageFactory.CreateClientRequestPayloadMsg(fileVersion, moduleBaseAddress, allocatedMemory, punaniString, path), false, false);
+        server.WriteMemoryStream(MessageFactory.CreateClientRequestPayloadMessageStream(fileVersion, moduleBaseAddress, allocatedMemory, punaniString, path), false, false);
         server.action_3 = callback;
     }
 
