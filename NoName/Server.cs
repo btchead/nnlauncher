@@ -51,7 +51,7 @@ public class Server
         bool isValidMessageSize = messageSize > 0 && messageSize <= 16777215;
         messageBuffer = isValidMessageSize ? new byte[messageSize] : new byte[0];
         return isValidMessageSize;
-        }
+    }
 
     public void WriteMemoryStream(MessageMemoryStream messageMemoryStream, bool optFlag_1 = false, bool optFlag_2 = false)
     {
@@ -110,48 +110,48 @@ public class Server
 
     private void ProcessHeaderBytes(int bytesRead)
     {
-                headerSize -= bytesRead;
+        headerSize -= bytesRead;
 
-                if (headerSize == 0)
-                {
-                    if (ValidateMessageHeader())
-                    {
+        if (headerSize == 0)
+        {
+            if (ValidateMessageHeader())
+            {
                 BeginReadingMessage();
-                    }
-                    else
-                    {
-                        CloseConnection();
-                    }
-                }
-                else
-                {
-            BeginReadingHeader();
-                }
             }
+            else
+            {
+                CloseConnection();
+            }
+        }
+        else
+        {
+            BeginReadingHeader();
+        }
+    }
 
     private void ProcessMessageBytes(int bytesRead)
-            {
-                messageSize -= bytesRead;
+    {
+        messageSize -= bytesRead;
 
         if (messageSize == 0)
-                {
+        {
             ProcessCompleteMessage();
-                }
-                else
-                {
+        }
+        else
+        {
             BeginReadingMessage();
-                }
-            }
+        }
+    }
 
     private void BeginReadingHeader()
     {
         connectionStream.BeginRead(headerBuffer, headerBuffer.Length - headerSize, headerSize, new AsyncCallback(ReadHeaderCallback), null);
-        }
+    }
 
     private void BeginReadingMessage()
-        {
+    {
         connectionStream.BeginRead(messageBuffer, messageBuffer.Length - messageSize, messageSize, new AsyncCallback(ReadHeaderCallback), null);
-        }
+    }
 
     private void ProcessCompleteMessage()
     {
