@@ -79,7 +79,7 @@ public class Server
 
     public void StreamWriteEndCallback(IAsyncResult iasyncResult_0)
     {
-        this.connectionStream.EndWrite(iasyncResult_0);
+        connectionStream.EndWrite(iasyncResult_0);
     }
 
     private void ReadHeaderCallback(IAsyncResult asyncResult)
