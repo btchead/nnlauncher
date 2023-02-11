@@ -11,14 +11,14 @@ The following is a list of files in the project, along with their status:
 - ClientServerMessageFlags.cs: 🎉✅ Fully restored
 - GClass5.cs: 🚧 WIP
 - GClass6.cs: 🚧 WIP
-- GClass9.cs: 🚧 WIP
+- MessageProcessor.cs: 🎉✅ Fully reversed and restored
 - KernelAPI: 🎉✅ Fully reversed and restored
 - LuaFunctions.cs: 🎉✅ Fully restored
 - MemoryBasicInformation.cs: 🎉✅ Fully restored
 - MemoryHandlerCommunicator.cs: 🚧 WIP
 - MemoryProtectionFlags.cs: 🎉✅ Fully restored
 - MessageFactory: 🎉✅ Fully reversed & restored, refactored
-- MessageFlagDelegateMapper.cs: 🚧 WIP
+- MessageHandlerSetup.cs: 🚧 WIP
 - MessageHandler.cs: 🚧 WIP (partially restored)
 - MessageHeaderStruct.cs: 🎉✅ Fully restored & reversed
 - MessageMemoryStream.cs: 🎉✅ Fully reversed & restored, refactored
