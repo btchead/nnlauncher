@@ -10,7 +10,6 @@
     <AssemblyName>NoName</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <StartupObject>Application</StartupObject>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -70,6 +69,13 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.2.12.0\lib\net47\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.Debug, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.Debug.2.0.0\lib\net46\Serilog.Sinks.Debug.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -78,30 +84,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
-    <Compile Include="WardenController.cs" />
-    <Compile Include="BinaryMessageReader.cs" />
-    <Compile Include="MessageMemoryStream.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Warden\WardenController.cs" />
+    <Compile Include="Message\BinaryMessageReader.cs" />
+    <Compile Include="Message\MessageMemoryStream.cs" />
     <Compile Include="Server.cs" />
-    <Compile Include="KernelAPI.cs" />
-    <Compile Include="ProcessMemoryHandler.cs" />
-    <Compile Include="MessageHandler.cs" />
-    <Compile Include="WardenScannerService.cs" />
-    <Compile Include="MemoryHandlerCommunicator.cs" />
+    <Compile Include="Utils\KernelAPI.cs" />
+    <Compile Include="Memory\ProcessMemoryHandler.cs" />
+    <Compile Include="Message\MessageHandler.cs" />
+    <Compile Include="Warden\WardenScannerService.cs" />
+    <Compile Include="Memory\MemoryHandlerCommunicator.cs" />
     <Compile Include="GClass5.cs" />
-    <Compile Include="ServerMessageHandler.cs" />
-    <Compile Include="MessageFactory.cs" />
-    <Compile Include="MessageHandlerSetup.cs" />
-    <Compile Include="MessageProcessor.cs" />
-    <Compile Include="ClientServerMessageFlags.cs" />
-    <Compile Include="LuaFunctions.cs" />
-    <Compile Include="ThreadAccessFlags.cs" />
-    <Compile Include="MemoryProtectionFlags.cs" />
-    <Compile Include="MessageHeaderStruct.cs" />
-    <Compile Include="MemoryBasicInformation.cs" />
+    <Compile Include="Message\ServerMessageHandler.cs" />
+    <Compile Include="Message\MessageFactory.cs" />
+    <Compile Include="Message\MessageHandlerSetup.cs" />
+    <Compile Include="Message\MessageProcessor.cs" />
+    <Compile Include="Message\ClientServerMessageFlags.cs" />
+    <Compile Include="Utils\LuaFunctions.cs" />
+    <Compile Include="Memory\ThreadAccessFlags.cs" />
+    <Compile Include="Memory\MemoryProtectionFlags.cs" />
+    <Compile Include="Message\MessageHeaderStruct.cs" />
+    <Compile Include="Memory\MemoryBasicInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.manifest" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

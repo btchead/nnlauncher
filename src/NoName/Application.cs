@@ -78,7 +78,6 @@ internal class Application
 
     private static void KillProcesses()
     {
-        Console.ForegroundColor = ConsoleColor.Magenta;
         foreach (int processID in pidList)
         {
             try
@@ -86,16 +85,13 @@ internal class Application
                 Process process = Process.GetProcessById(processID);
                 if (!process.HasExited)
                 {
-                    Console.WriteLine("Killing process with PID: " + processID);
                     process.Kill();
                 }
             }
             catch
             {
-                // TODO
             }
         }
-        Console.ForegroundColor = ConsoleColor.Gray;
     }
 
     private static void ConnectionLossRoutine()

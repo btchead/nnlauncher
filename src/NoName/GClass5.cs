@@ -9,21 +9,21 @@ using System.Threading;
 public class GClass5
 {
 	// Token: 0x06000099 RID: 153 RVA: 0x00002508 File Offset: 0x00000708
-	public GClass5(ProcessMemoryHandler gclass14_1, MessageHandler gclass2_1)
+	public GClass5(ProcessMemoryHandler processMemoryHandler, MessageHandler messageHandler)
 	{
-		this.gclass14_0 = gclass14_1;
-		this.gclass2_0 = gclass2_1;
+		this.processMemoryHandler = processMemoryHandler;
+		this.messageHandler = messageHandler;
 	}
 
 	// Token: 0x0600009A RID: 154 RVA: 0x00003CC8 File Offset: 0x00001EC8
 	public void method_0(ulong ulong_0)
 	{
-		StringBuilder stringBuilder = new StringBuilder(this.gclass2_0.Byte_1.Length);
-		for (int i = 0; i < this.gclass2_0.Byte_1.Length; i++)
+		StringBuilder stringBuilder = new StringBuilder(this.messageHandler.Byte_1.Length);
+		for (int i = 0; i < this.messageHandler.Byte_1.Length; i++)
 		{
-			stringBuilder.Append((char)this.gclass2_0.Byte_1[i]);
+			stringBuilder.Append((char)this.messageHandler.Byte_1[i]);
 		}
-		this.gclass14_0.WriteBytesToMemory((IntPtr)((long)ulong_0), this.gclass2_0.Byte_1);
+		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)ulong_0), this.messageHandler.Byte_1);
 	}
 
 	// Token: 0x0600009B RID: 155 RVA: 0x00003D34 File Offset: 0x00001F34
@@ -32,12 +32,12 @@ public class GClass5
 		GClass5.Class10 @class = new GClass5.Class10();
 		@class.gclass5_0 = this;
 		List<byte> list = new List<byte>();
-		list.AddRange(this.gclass2_0.Byte_0);
-		@class.ulong_0 = (ulong)(long)this.gclass14_0.AllocateMemory(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L);
-		this.gclass14_0.WriteBytesToMemory((IntPtr)((long)@class.ulong_0), list.ToArray());
-		@class.ulong_1 = (ulong)this.gclass14_0.GetMainModuleBaseAddress();
+		list.AddRange(this.messageHandler.Byte_0);
+		@class.ulong_0 = (ulong)(long)this.processMemoryHandler.AllocateMemory(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L);
+		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)@class.ulong_0), list.ToArray());
+		@class.ulong_1 = (ulong)this.processMemoryHandler.GetMainModuleBaseAddress();
 		@class.long_0 = 0L;
-		@class.long_0 = this.method_4((int)this.gclass2_0.List_0[35], new Action<byte[], int>(@class.method_0));
+		@class.long_0 = this.method_4((int)this.messageHandler.List_0[35], new Action<byte[], int>(@class.method_0));
 	}
 
 	// Token: 0x0600009E RID: 158 RVA: 0x00003FB8 File Offset: 0x000021B8
@@ -51,17 +51,17 @@ public class GClass5
 			{
 				break;
 			}
-			KernelAPI.NtResumeProcess(this.gclass14_0.processHandle);
+			KernelAPI.NtResumeProcess(this.processMemoryHandler.processHandle);
 			Console.Write(".");
 			Thread.Sleep(50);
-			KernelAPI.NtSuspendProcess(this.gclass14_0.processHandle);
+			KernelAPI.NtSuspendProcess(this.processMemoryHandler.processHandle);
 		}
 		long num = array[0] & -4096L;
-		byte[] array2 = this.gclass14_0.method_4(num, 4096);
+		byte[] array2 = this.processMemoryHandler.method_4(num, 4096);
 		if (array2 != null)
 		{
-			this.gclass2_0.Action_1 = action_0;
-			this.gclass2_0.SendClientRequestHookPayloadMsg(this.gclass14_0.FileVersion, array, array2, (ulong)this.gclass14_0.GetMainModuleBaseAddress());
+			this.messageHandler.Action_1 = action_0;
+			this.messageHandler.SendClientRequestHookPayloadMsg(this.processMemoryHandler.FileVersion, array, array2, (ulong)this.processMemoryHandler.GetMainModuleBaseAddress());
 			return num;
 		}
 		Console.WriteLine("Criticale error!");
@@ -73,13 +73,13 @@ public class GClass5
 	{
 		int num = 0;
 		MemoryBasicInformation memoryBasicInfo;
-		KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, this.gclass14_0.process.MainModule.BaseAddress, out memoryBasicInfo, Marshal.SizeOf(typeof(MemoryBasicInformation)));
-		byte[] array = this.gclass14_0.method_4((long)memoryBasicInfo.BaseAddress, (int)memoryBasicInfo.RegionSize);
+		KernelAPI.VirtualQueryEx(this.processMemoryHandler.processHandle, this.processMemoryHandler.process.MainModule.BaseAddress, out memoryBasicInfo, Marshal.SizeOf(typeof(MemoryBasicInformation)));
+		byte[] array = this.processMemoryHandler.method_4((long)memoryBasicInfo.BaseAddress, (int)memoryBasicInfo.RegionSize);
 		if (array == null)
 		{
 			return null;
 		}
-		for (int i = (int)((long)(this.gclass14_0.process.MainModule.ModuleMemorySize / 4) & 4294963200L); i < (int)memoryBasicInfo.RegionSize; i += 4096)
+		for (int i = (int)((long)(this.processMemoryHandler.process.MainModule.ModuleMemorySize / 4) & 4294963200L); i < (int)memoryBasicInfo.RegionSize; i += 4096)
 		{
 			long num2 = BitConverter.ToInt64(array, i);
 			if (this.method_6(num2))
@@ -113,20 +113,20 @@ public class GClass5
 	// Token: 0x060000A0 RID: 160 RVA: 0x000041B8 File Offset: 0x000023B8
 	private bool method_6(long long_0)
 	{
-		if (long_0 <= (long)this.gclass14_0.process.MainModule.BaseAddress || long_0 >= (long)this.gclass14_0.process.MainModule.BaseAddress + (long)this.gclass14_0.process.MainModule.ModuleMemorySize)
+		if (long_0 <= (long)this.processMemoryHandler.process.MainModule.BaseAddress || long_0 >= (long)this.processMemoryHandler.process.MainModule.BaseAddress + (long)this.processMemoryHandler.process.MainModule.ModuleMemorySize)
 		{
 			MemoryBasicInformation memoryBasicInfo;
-			KernelAPI.VirtualQueryEx(this.gclass14_0.processHandle, (IntPtr)long_0, out memoryBasicInfo, Marshal.SizeOf(typeof(MemoryBasicInformation)));
+			KernelAPI.VirtualQueryEx(this.processMemoryHandler.processHandle, (IntPtr)long_0, out memoryBasicInfo, Marshal.SizeOf(typeof(MemoryBasicInformation)));
 			return memoryBasicInfo.RegionSize != 0UL && memoryBasicInfo.Protect != 1U && (memoryBasicInfo.AllocationProtect & 64U) > 0U;
 		}
 		return false;
 	}
 
 	// Token: 0x04000025 RID: 37
-	private ProcessMemoryHandler gclass14_0;
+	private ProcessMemoryHandler processMemoryHandler;
 
 	// Token: 0x04000026 RID: 38
-	private MessageHandler gclass2_0;
+	private MessageHandler messageHandler;
 
 	// Token: 0x04000027 RID: 39
 	private static byte[] byte_0 = new byte[]
@@ -149,8 +149,8 @@ public class GClass5
 			{
 				byte_0[int_0 + i] = bytes[i];
 			}
-			this.gclass5_0.gclass14_0.WriteBytesToMemory((IntPtr)this.long_0, byte_0);
-			this.gclass5_0.gclass14_0.WriteBytesToMemory((IntPtr)((long)(this.ulong_1 + this.gclass5_0.gclass2_0.List_0[80])), BitConverter.GetBytes(this.ulong_1 + this.gclass5_0.gclass2_0.List_0[34] + 5UL));
+			this.gclass5_0.processMemoryHandler.WriteBytesToMemory((IntPtr)this.long_0, byte_0);
+			this.gclass5_0.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)(this.ulong_1 + this.gclass5_0.messageHandler.List_0[80])), BitConverter.GetBytes(this.ulong_1 + this.gclass5_0.messageHandler.List_0[34] + 5UL));
 		}
 
 		// Token: 0x04000028 RID: 40
