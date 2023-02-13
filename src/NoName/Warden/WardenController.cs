@@ -58,7 +58,7 @@ public class WardenController
     public void method_4()
     {
         MemoryHandlerCommunicator gclass = new MemoryHandlerCommunicator(gclass14_0, networkStreamWriter);
-        gclass.method_0(GetMachineGUID());
+        gclass.method_0(Crypto.MachineGUID);
     }
 
     public void method_5()
@@ -100,30 +100,6 @@ public class WardenController
     public void ResumeProcess()
     {
         KernelAPI.NtResumeProcess(gclass14_0.processHandle);
-    }
-
-    private string GetMachineGUID()
-    {
-        string text = "SOFTWARE\\Microsoft\\Cryptography";
-        string text2 = "MachineGuid";
-        string text3;
-        using (RegistryKey registryKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-        {
-            using (RegistryKey registryKey2 = registryKey.OpenSubKey(text))
-            {
-                if (registryKey2 == null)
-                {
-                    throw new KeyNotFoundException(string.Format("Key Not Found: {0}", text));
-                }
-                object value = registryKey2.GetValue(text2);
-                if (value == null)
-                {
-                    throw new IndexOutOfRangeException(string.Format("Index Not Found: {0}", text2));
-                }
-                text3 = value.ToString();
-            }
-        }
-        return text3;
     }
 
     public ProcessMemoryHandler gclass14_0;
