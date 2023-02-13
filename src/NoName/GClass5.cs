@@ -5,17 +5,14 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-// Token: 0x0200000D RID: 13
 public class GClass5
 {
-	// Token: 0x06000099 RID: 153 RVA: 0x00002508 File Offset: 0x00000708
 	public GClass5(ProcessMemoryHandler processMemoryHandler, MessageHandler messageHandler)
 	{
 		this.processMemoryHandler = processMemoryHandler;
 		this.messageHandler = messageHandler;
 	}
 
-	// Token: 0x0600009A RID: 154 RVA: 0x00003CC8 File Offset: 0x00001EC8
 	public void method_0(ulong ulong_0)
 	{
 		StringBuilder stringBuilder = new StringBuilder(this.messageHandler.Byte_1.Length);
@@ -26,7 +23,6 @@ public class GClass5
 		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)ulong_0), this.messageHandler.Byte_1);
 	}
 
-	// Token: 0x0600009B RID: 155 RVA: 0x00003D34 File Offset: 0x00001F34
 	public void method_1()
 	{
 		GClass5.Class10 @class = new GClass5.Class10();
@@ -40,7 +36,6 @@ public class GClass5
 		@class.long_0 = this.method_4((int)this.messageHandler.List_0[35], new Action<byte[], int>(@class.method_0));
 	}
 
-	// Token: 0x0600009E RID: 158 RVA: 0x00003FB8 File Offset: 0x000021B8
 	public long method_4(int int_0, Action<byte[], int> action_0)
 	{
 		long[] array;
@@ -68,7 +63,6 @@ public class GClass5
 		return 0L;
 	}
 
-	// Token: 0x0600009F RID: 159 RVA: 0x00004070 File Offset: 0x00002270
 	private long[] method_5(int int_0)
 	{
 		int num = 0;
@@ -110,7 +104,6 @@ public class GClass5
 		return null;
 	}
 
-	// Token: 0x060000A0 RID: 160 RVA: 0x000041B8 File Offset: 0x000023B8
 	private bool method_6(long long_0)
 	{
 		if (long_0 <= (long)this.processMemoryHandler.process.MainModule.BaseAddress || long_0 >= (long)this.processMemoryHandler.process.MainModule.BaseAddress + (long)this.processMemoryHandler.process.MainModule.ModuleMemorySize)
@@ -122,13 +115,10 @@ public class GClass5
 		return false;
 	}
 
-	// Token: 0x04000025 RID: 37
 	private ProcessMemoryHandler processMemoryHandler;
 
-	// Token: 0x04000026 RID: 38
 	private MessageHandler messageHandler;
 
-	// Token: 0x04000027 RID: 39
 	private static byte[] byte_0 = new byte[]
 	{
 		195, 72, 191, 239, 238, 238, 238, 238, 190, 173,
@@ -137,11 +127,9 @@ public class GClass5
 		87, 8, byte.MaxValue, 39, 195
 	};
 
-	// Token: 0x0200000E RID: 14
 	[CompilerGenerated]
 	private sealed class Class10
 	{
-		// Token: 0x060000B5 RID: 181 RVA: 0x0000426C File Offset: 0x0000246C
 		internal void method_0(byte[] byte_0, int int_0)
 		{
 			byte[] bytes = BitConverter.GetBytes(this.ulong_0);
@@ -153,16 +141,12 @@ public class GClass5
 			this.gclass5_0.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)(this.ulong_1 + this.gclass5_0.messageHandler.List_0[80])), BitConverter.GetBytes(this.ulong_1 + this.gclass5_0.messageHandler.List_0[34] + 5UL));
 		}
 
-		// Token: 0x04000028 RID: 40
 		public ulong ulong_0;
 
-		// Token: 0x04000029 RID: 41
 		public GClass5 gclass5_0;
 
-		// Token: 0x0400002A RID: 42
 		public long long_0;
 
-		// Token: 0x0400002B RID: 43
 		public ulong ulong_1;
 	}
 }
