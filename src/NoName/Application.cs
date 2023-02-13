@@ -164,7 +164,7 @@ internal class Application
             {
                 // Check for authFlag == 2, bad one is 0
                 class7.bool_0 = unkownStruct_0.ushort_0 == 2;
-                class7.wardenController = new WardenController(new ProcessMemoryHandler(class7.process), this.server);
+                class7.wardenController = new WardenController(new ProcessMemoryHandler(class7.process), server);
                 if (class7.bool_0)
                 {
                     class7.wardenController.SuspendProcess();
