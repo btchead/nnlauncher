@@ -36,10 +36,7 @@ internal class Application
                 Thread.Sleep(-1);
                 return;
             }
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Failed to connect!");
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("Press any key to exit...");
+            Logger.Error("Failed to connect!");
             Console.ReadLine();
         }
         else
@@ -53,7 +50,7 @@ internal class Application
     {
         if (!IsLicenseFileValid())
         {
-            Console.WriteLine("Missing or empty license file");
+            Logger.Error("Missing or empty license file");
             return false;
         }
         return true;
@@ -96,11 +93,10 @@ internal class Application
 
     private static void ConnectionLossRoutine()
     {
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine("Connection to the server was lost!");
+        Logger.Error("Connection to the server was lost!");
         if (IsWowLaunched)
         {
-            Console.WriteLine("Force-killing all instances to prevent detection!");
+            Logger.Error("Force-killing all instances to prevent detection!");
             KillProcesses();
         }
         Process.GetCurrentProcess().Kill();
@@ -133,7 +129,7 @@ internal class Application
         }
         catch (Exception ex)
         {
-            Console.WriteLine("An error occurred: " + ex.Message);
+            Logger.Error("Failed to fetch machine GUID: ", ex);
             return string.Empty;
         }
 
@@ -162,7 +158,7 @@ internal class Application
                 Thread.Sleep(2000);
                 return;
             }
-            Console.WriteLine("Waiting for World of Warcraft...");
+            Logger.Info("Waiting for World of Warcraft...");
             bool flag = true;
             while (flag)
             {
@@ -222,7 +218,7 @@ internal class Application
             }
             catch (Exception)
             {
-                Console.WriteLine("Failed to inject " + class7.process.ProcessName + " " + class7.process.Id.ToString("X"));
+                Logger.Error("Failed to inject " + class7.process.ProcessName + " " + class7.process.Id.ToString("X"));
             }
         }
 
@@ -258,7 +254,7 @@ internal class Application
                 Thread.Sleep(5000);
                 wardenController.method_4();
                 class6.IsInjected = true;
-                Console.WriteLine($"Injected into {process.ProcessName} {process.Id.ToString("X")}");
+                Logger.Info($"Injected into {process.ProcessName} {process.Id.ToString("X")}");
                 wardenController.StartWardenScanningThread();
                 return;
             }
@@ -270,7 +266,7 @@ internal class Application
             wardenController.method_5();
             class6.IsInjected = true;
             class6.hasResumed = true;
-            Console.WriteLine($"Injected into {process.ProcessName} {process.Id.ToString("X")}");
+            Logger.Info($"Injected into {process.ProcessName} {process.Id.ToString("X")}");
             wardenController.StartWardenScanningThread();
             if (bool_0)
             {

@@ -19,7 +19,7 @@ public class Server
     {
         try
         {
-            Console.WriteLine("Connecting...");
+            Logger.Info("Connecting...");
             TcpClient tcpClient = new TcpClient("5.161.63.123", 9050);
             connectionStream = tcpClient.GetStream();
 
@@ -28,14 +28,12 @@ public class Server
             headerSize = 4;
             new Thread(ReadMessageHeaderAsync).Start();
 
-            Console.WriteLine("Connected.");
+            Logger.Info("Connected.");
             return true;
         }
         catch (Exception ex)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Error: " + ex.Message);
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Logger.Error("Error: ", ex);
             return false;
         }
     }

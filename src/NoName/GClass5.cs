@@ -47,7 +47,7 @@ public class GClass5
 				break;
 			}
 			KernelAPI.NtResumeProcess(this.processMemoryHandler.processHandle);
-			Console.Write(".");
+			Logger.Info(".");
 			Thread.Sleep(50);
 			KernelAPI.NtSuspendProcess(this.processMemoryHandler.processHandle);
 		}
@@ -59,7 +59,7 @@ public class GClass5
 			this.messageHandler.SendClientRequestHookPayloadMsg(this.processMemoryHandler.FileVersion, array, array2, (ulong)this.processMemoryHandler.GetMainModuleBaseAddress());
 			return num;
 		}
-		Console.WriteLine("Criticale error!");
+		Logger.Error("Criticale error!");
 		return 0L;
 	}
 

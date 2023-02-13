@@ -49,7 +49,7 @@ public class WardenScannerService
 				// Check for errors.
 				if (memoryAddress == 0UL)
 				{
-					Console.WriteLine("Fatal error, ending the scan!");
+					Logger.Error("Fatal error, ending the scan!");
 					return;
 				}
 
@@ -58,7 +58,7 @@ public class WardenScannerService
 				{
 					if (!isFirstScan)
 					{
-						Console.WriteLine("Possible warden module detected, exiting!", ConsoleColor.Yellow);
+						Logger.Error("Possible warden module detected, exiting!");
 						byte[] memoryContents = new byte[memoryInformation.RegionSize];
 						IntPtr bytesRead;
 						KernelAPI.ReadProcessMemory(gclass14_0.processHandle, memoryPointer, memoryContents, memoryContents.Length, out bytesRead);

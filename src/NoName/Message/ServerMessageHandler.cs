@@ -23,7 +23,7 @@ public class ServerMessageHandler
 		string text = binaryReaderWrapper.ReadString((int)num);
 		ConsoleColor foregroundColor = Console.ForegroundColor;
 		Console.ForegroundColor = consoleColor;
-		Console.WriteLine(text);
+		Logger.Info(text);
 		Console.ForegroundColor = foregroundColor;
 	}
 
@@ -34,7 +34,7 @@ public class ServerMessageHandler
         string message = binaryReaderWrapper.ReadString((int)length);
         ConsoleColor foregroundColor = Console.ForegroundColor;
 		Console.ForegroundColor = color;
-		Console.WriteLine(message);
+		Logger.Info(message);
 		Console.ForegroundColor = foregroundColor;
 	}
 

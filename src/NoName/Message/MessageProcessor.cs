@@ -19,7 +19,7 @@ public class MessageProcessor
 		}
 		catch (Exception ex)
 		{
-			Console.WriteLine(ex.ToString());
+			Logger.Error("Exception thrown while processing message handler: ", ex);
 		}
 	}
 
