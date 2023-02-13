@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Utils\Crypto.cs" />
     <Compile Include="Warden\WardenController.cs" />
     <Compile Include="Message\BinaryMessageReader.cs" />
     <Compile Include="Message\MessageMemoryStream.cs" />
