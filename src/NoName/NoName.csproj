@@ -44,7 +44,7 @@
     <Compile Include="Server.cs" />
     <Compile Include="Utils\KernelAPI.cs" />
     <Compile Include="Memory\ProcessMemoryHandler.cs" />
-    <Compile Include="Message\NetworkStreamWriter.cs" />
+    <Compile Include="Network\NetworkStreamWriter.cs" />
     <Compile Include="Warden\WardenScannerService.cs" />
     <Compile Include="Memory\MemoryHandlerCommunicator.cs" />
     <Compile Include="GClass5.cs" />
