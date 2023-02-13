@@ -5,7 +5,6 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Microsoft.Win32;
 
 internal class Application
 {
@@ -66,18 +65,13 @@ internal class Application
     {
         foreach (int processID in pidList)
         {
-            try
-            {
                 Process process = Process.GetProcessById(processID);
                 if (!process.HasExited)
                 {
+                Logger.Info("Force killing process: PID " + processID);
                     process.Kill();
                 }
             }
-            catch
-            {
-            }
-        }
     }
 
     private static void ConnectionLossRoutine()
