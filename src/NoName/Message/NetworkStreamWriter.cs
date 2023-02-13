@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-public class MessageHandler
+public class NetworkStreamWriter
 {
     public Action Action_0
     {
@@ -35,7 +35,7 @@ public class MessageHandler
         }
     }
 
-    public MessageHandler(Server serverInstance)
+    public NetworkStreamWriter(Server serverInstance)
     {
         server = serverInstance;
     }
