@@ -19,7 +19,7 @@ internal class Application
         {
             licenseKey = File.ReadAllText(licenseKeyFileName);
 
-            foreach (string processName in class6.wowProcessNames)
+            foreach (string processName in class6.windowNames)
             {
                 class6.processList.AddRange(Process.GetProcessesByName(processName));
             }
@@ -118,7 +118,7 @@ internal class Application
             while (flag)
             {
                 List<Process> list = new List<Process>();
-                foreach (string text in wowProcessNames)
+                foreach (string text in windowNames)
                 {
                     list.AddRange(Process.GetProcessesByName(text));
                 }
@@ -183,7 +183,7 @@ internal class Application
 
         public bool hasResumed;
 
-        public readonly string[] wowProcessNames = { "Wow", "WowT", "WowClassic" };
+        public readonly string[] windowNames = { "Wow", "WowT", "WowClassic" };
 
         public List<Process> processList = new List<Process>();
 
