@@ -13,7 +13,7 @@ public static class Logger
 
     public static void Error(string message, Exception exception = null)
     {
-        if (exception != null)
+        if (exception == null)
         {
             _logger.Error(message);
         }
