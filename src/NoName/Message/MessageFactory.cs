@@ -4,7 +4,7 @@ public class MessageFactory
 {
     public static MessageMemoryStream CreateClientAuthMessageStream(string licenseKey, string machineIdentifier)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_AUTH);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_AUTH_REQUEST);
         messageMemoryStream.WriteBytes(new byte[] { 7, 1 });
         messageMemoryStream.WriteString(licenseKey, 32);
         messageMemoryStream.WriteUInt16(105);
@@ -14,14 +14,14 @@ public class MessageFactory
 
     public static MessageMemoryStream CreateClientKeyMessageStream(byte value)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_KEY);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_KEY_REQUEST);
         messageMemoryStream.WriteByte(value);
         return messageMemoryStream;
     }
 
     public static MessageMemoryStream CreateClientRequestOffsetsMessageStream(string string_0, ulong ulong_0, string string_1)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_OFFSETS);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_OFFSETS_REQUEST);
         messageMemoryStream.WriteUInt16((ushort)string_0.Length);
         messageMemoryStream.WriteString(string_0, string_0.Length);
         messageMemoryStream.WriteUInt64(ulong_0);
@@ -32,7 +32,7 @@ public class MessageFactory
 
     public static MessageMemoryStream CreateClientRequestToolOffsetsMessageStream(string string_0)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_TOOL_OFFSETS);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_TOOL_OFFSETS_REQUEST);
         messageMemoryStream.WriteUInt16((ushort)string_0.Length);
         messageMemoryStream.WriteString(string_0, string_0.Length);
         return messageMemoryStream;
@@ -40,7 +40,7 @@ public class MessageFactory
 
     public static MessageMemoryStream CreateClientRequestPayloadMessageStream(string fileVersion, ulong moduleBaseAddress, ulong allocatedMemory, string punaniString, string path)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQEUEST_APAYLOAD);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_APAYLOAD_REQUEST);
         messageMemoryStream.WriteUInt16((ushort)fileVersion.Length);
         messageMemoryStream.WriteString(fileVersion, fileVersion.Length);
         messageMemoryStream.WriteUInt64(moduleBaseAddress);
@@ -54,7 +54,7 @@ public class MessageFactory
 
     public static MessageMemoryStream CreateClientWardenUploadMessageStream(byte[] uploadData)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_WARDEN_UPLOAD);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_WARDEN_UPLOAD_REQUEST);
         messageMemoryStream.WriteInt32(uploadData.Length);
         messageMemoryStream.WriteBytes(uploadData);
         return messageMemoryStream;
@@ -62,7 +62,7 @@ public class MessageFactory
 
     public static MessageMemoryStream CreateClientRequestNeedlePayload(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0, string string_1)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_NEEDLE_PAYLOAD);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_NEEDLE_PAYLOAD_REQUEST);
         messageMemoryStream.WriteUInt64(ulong_0);
         messageMemoryStream.WriteSByte((sbyte)long_0.Length);
         for (int i = 0; i < long_0.Length; i++)
@@ -80,7 +80,7 @@ public class MessageFactory
 
     public static MessageMemoryStream CreateClientRequestHookPayloadMessageStream(string string_0, long[] long_0, byte[] byte_0, ulong ulong_0)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_HOOK_PAYLOAD);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_HOOK_PAYLOAD_REQUEST);
         messageMemoryStream.WriteUInt64(ulong_0);
         messageMemoryStream.WriteSByte((sbyte)long_0.Length);
         for (int i = 0; i < long_0.Length; i++)
@@ -96,7 +96,7 @@ public class MessageFactory
 
     public static MessageMemoryStream CreateClientUploadGameModuleMessageStream(string fileVersion, byte[] chunk, int length, int i)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_UPLOAD_GAMEMODULE);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_UPLOAD_GAMEMODUL_REQUEST);
         ushort fileVersionLength = (ushort)fileVersion.Length;
         messageMemoryStream.WriteUInt16(fileVersionLength);
         messageMemoryStream.WriteString(fileVersion, (int)fileVersionLength);
@@ -110,7 +110,7 @@ public class MessageFactory
     [Obsolete("This method is never used in original source, use with caution - detection vector")]
     public static MessageMemoryStream CreateClientRequestScriptsMessageStream(string string_0)
     {
-        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_REQUEST_SCRIPTS);
+        MessageMemoryStream messageMemoryStream = new MessageMemoryStream(ClientServerMessageFlags.CMSG_SCRIPTS_REQUEST);
         ushort num = (ushort)string_0.Length;
         messageMemoryStream.WriteUInt16(num);
         messageMemoryStream.WriteString(string_0, (int)num);
