@@ -11,7 +11,7 @@ internal class Application
 {
     private static void Main()
     {
-        Console.Title = GenerateRandomString();
+        Console.Title = Crypto.RandomString;
 
         Class6 class6 = new Class6();
 
@@ -32,7 +32,7 @@ internal class Application
             {
                 networkStreamWriter.Action_3 = new Action<object>(class6.method_0);
                 class6.hasResumed = true;
-                networkStreamWriter.SendAuthMessage(licenseKey, GetMachineIdentifier());
+                networkStreamWriter.SendAuthMessage(licenseKey, Crypto.MachineGUID);
                 Thread.Sleep(-1);
                 return;
             }
@@ -62,17 +62,6 @@ internal class Application
                File.ReadAllText(licenseKeyFileName) != string.Empty;
     }
 
-    private static string GenerateRandomString()
-    {
-        Random random = new Random();
-        byte[] array = new byte[random.Next(5, 19)];
-        for (int i = 0; i < array.Length; i++)
-        {
-            array[i] = (byte)random.Next(0, 255);
-        }
-        return Convert.ToBase64String(array);
-    }
-
     private static void KillProcesses()
     {
         foreach (int processID in pidList)
@@ -100,40 +89,6 @@ internal class Application
             KillProcesses();
         }
         Process.GetCurrentProcess().Kill();
-    }
-
-    private static string GetMachineIdentifier()
-    {
-        const string registryPath = "SOFTWARE\\Microsoft\\Cryptography";
-        const string targetKey = "MachineGuid";
-        string machineIdentifier;
-
-        try
-        {
-            using (RegistryKey registryKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
-            {
-                RegistryKey subKey = registryKey.OpenSubKey(registryPath);
-                if (subKey == null)
-                {
-                    throw new Exception("Unable to find the registry path: " + registryPath);
-                }
-
-                object value = subKey.GetValue(targetKey);
-                if (value == null)
-                {
-                    throw new Exception("Unable to find the target key: " + targetKey);
-                }
-
-                machineIdentifier = value.ToString();
-            }
-        }
-        catch (Exception ex)
-        {
-            Logger.Error("Failed to fetch machine GUID: ", ex);
-            return string.Empty;
-        }
-
-        return machineIdentifier;
     }
 
     public const ushort ushort_0 = 105;
