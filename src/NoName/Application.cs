@@ -83,19 +83,13 @@ internal class Application
     private static void ConnectionLossRoutine()
     {
         Logger.Error("Connection to the server was lost!");
-        if (IsWowLaunched)
-        {
-            Logger.Error("Force-killing all instances to prevent detection!");
             KillProcesses();
-        }
         Process.GetCurrentProcess().Kill();
     }
 
     public const ushort ushort_0 = 105;
 
     private static List<int> pidList = new List<int>();
-
-    private static readonly bool IsWowLaunched = false;
 
     private static string licenseKey = "";
 
