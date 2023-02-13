@@ -7,10 +7,10 @@ using System.Threading;
 
 public class MemoryHandlerCommunicator
 {
-    public MemoryHandlerCommunicator(ProcessMemoryHandler gclass14_1, MessageHandler gclass2_1)
+    public MemoryHandlerCommunicator(ProcessMemoryHandler gclass14_1, NetworkStreamWriter networkStreamWriter)
     {
         gclass14_0 = gclass14_1;
-        gclass2_0 = gclass2_1;
+        this.networkStreamWriter = networkStreamWriter;
     }
 
     public void method_0(string string_0)
@@ -20,8 +20,8 @@ public class MemoryHandlerCommunicator
         long[] array = method_1();
         @class.long_0 = array[0] & -4096L;
         byte[] array2 = gclass14_0.method_4(@class.long_0, 4096);
-        gclass2_0.Action_2 = new Action<byte[], int>(@class.method_0);
-        gclass2_0.SendClientRequestNeedlePayloadMsg(gclass14_0.FileVersion, array, array2, (ulong)gclass14_0.GetMainModuleBaseAddress(), string_0);
+        networkStreamWriter.Action_2 = new Action<byte[], int>(@class.method_0);
+        networkStreamWriter.SendClientRequestNeedlePayloadMsg(gclass14_0.FileVersion, array, array2, (ulong)gclass14_0.GetMainModuleBaseAddress(), string_0);
     }
 
     private long[] method_1()
@@ -128,7 +128,7 @@ public class MemoryHandlerCommunicator
 
     private ProcessMemoryHandler gclass14_0;
 
-    private MessageHandler gclass2_0;
+    private NetworkStreamWriter networkStreamWriter;
 
     [CompilerGenerated]
     private sealed class Class9

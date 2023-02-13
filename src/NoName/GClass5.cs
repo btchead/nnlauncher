@@ -7,20 +7,20 @@ using System.Threading;
 
 public class GClass5
 {
-	public GClass5(ProcessMemoryHandler processMemoryHandler, MessageHandler messageHandler)
+	public GClass5(ProcessMemoryHandler processMemoryHandler, NetworkStreamWriter networkStreamWriter)
 	{
 		this.processMemoryHandler = processMemoryHandler;
-		this.messageHandler = messageHandler;
+		this.networkStreamWriter = networkStreamWriter;
 	}
 
 	public void method_0(ulong ulong_0)
 	{
-		StringBuilder stringBuilder = new StringBuilder(this.messageHandler.Byte_1.Length);
-		for (int i = 0; i < this.messageHandler.Byte_1.Length; i++)
+		StringBuilder stringBuilder = new StringBuilder(this.networkStreamWriter.Byte_1.Length);
+		for (int i = 0; i < this.networkStreamWriter.Byte_1.Length; i++)
 		{
-			stringBuilder.Append((char)this.messageHandler.Byte_1[i]);
+			stringBuilder.Append((char)this.networkStreamWriter.Byte_1[i]);
 		}
-		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)ulong_0), this.messageHandler.Byte_1);
+		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)ulong_0), this.networkStreamWriter.Byte_1);
 	}
 
 	public void method_1()
@@ -28,12 +28,12 @@ public class GClass5
 		GClass5.Class10 @class = new GClass5.Class10();
 		@class.gclass5_0 = this;
 		List<byte> list = new List<byte>();
-		list.AddRange(this.messageHandler.Byte_0);
+		list.AddRange(this.networkStreamWriter.Byte_0);
 		@class.ulong_0 = (ulong)(long)this.processMemoryHandler.AllocateMemory(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L);
 		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)@class.ulong_0), list.ToArray());
 		@class.ulong_1 = (ulong)this.processMemoryHandler.GetMainModuleBaseAddress();
 		@class.long_0 = 0L;
-		@class.long_0 = this.method_4((int)this.messageHandler.List_0[35], new Action<byte[], int>(@class.method_0));
+		@class.long_0 = this.method_4((int)this.networkStreamWriter.List_0[35], new Action<byte[], int>(@class.method_0));
 	}
 
 	public long method_4(int int_0, Action<byte[], int> action_0)
@@ -55,8 +55,8 @@ public class GClass5
 		byte[] array2 = this.processMemoryHandler.method_4(num, 4096);
 		if (array2 != null)
 		{
-			this.messageHandler.Action_1 = action_0;
-			this.messageHandler.SendClientRequestHookPayloadMsg(this.processMemoryHandler.FileVersion, array, array2, (ulong)this.processMemoryHandler.GetMainModuleBaseAddress());
+			this.networkStreamWriter.Action_1 = action_0;
+			this.networkStreamWriter.SendClientRequestHookPayloadMsg(this.processMemoryHandler.FileVersion, array, array2, (ulong)this.processMemoryHandler.GetMainModuleBaseAddress());
 			return num;
 		}
 		Logger.Error("Criticale error!");
@@ -117,7 +117,7 @@ public class GClass5
 
 	private ProcessMemoryHandler processMemoryHandler;
 
-	private MessageHandler messageHandler;
+	private NetworkStreamWriter networkStreamWriter;
 
 	private static byte[] byte_0 = new byte[]
 	{
@@ -138,7 +138,7 @@ public class GClass5
 				byte_0[int_0 + i] = bytes[i];
 			}
 			this.gclass5_0.processMemoryHandler.WriteBytesToMemory((IntPtr)this.long_0, byte_0);
-			this.gclass5_0.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)(this.ulong_1 + this.gclass5_0.messageHandler.List_0[80])), BitConverter.GetBytes(this.ulong_1 + this.gclass5_0.messageHandler.List_0[34] + 5UL));
+			this.gclass5_0.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)(this.ulong_1 + this.gclass5_0.networkStreamWriter.List_0[80])), BitConverter.GetBytes(this.ulong_1 + this.gclass5_0.networkStreamWriter.List_0[34] + 5UL));
 		}
 
 		public ulong ulong_0;

@@ -6,10 +6,10 @@ using System.Threading;
 
 public class WardenScannerService
 {
-	public WardenScannerService(ProcessMemoryHandler gclass14_1, MessageHandler messageHandler)
+	public WardenScannerService(ProcessMemoryHandler gclass14_1, NetworkStreamWriter networkStreamWriter)
 	{
 		this.gclass14_0 = gclass14_1;
-		this.messageHandler = messageHandler;
+		this.networkStreamWriter = networkStreamWriter;
 	}
 
 	public void StartWardenScanning()
@@ -64,7 +64,7 @@ public class WardenScannerService
 						KernelAPI.ReadProcessMemory(gclass14_0.processHandle, memoryPointer, memoryContents, memoryContents.Length, out bytesRead);
 						if ((long)bytesRead == (long)memoryInformation.RegionSize)
 						{
-							messageHandler.SendWardenUploadMessage(memoryContents);
+							networkStreamWriter.SendWardenUploadMessage(memoryContents);
 						}
 						Thread.Sleep(1500);
 						Process.GetCurrentProcess().Kill();
@@ -86,7 +86,7 @@ public class WardenScannerService
 
 	private ProcessMemoryHandler gclass14_0;
 
-	private MessageHandler messageHandler;
+	private NetworkStreamWriter networkStreamWriter;
 
 	private bool scanningEnabled = true;
 }

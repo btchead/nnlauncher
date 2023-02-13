@@ -27,12 +27,12 @@ internal class Application
             class6.maxProcessWaitTimestamp = DateTime.Now.AddSeconds(20.0);
             class6.server = new Server(new Action(ConnectionLossRoutine));
 
-            MessageHandler messageHandler = new MessageHandler(class6.server);
-            if (messageHandler.SendKeyMessage())
+            NetworkStreamWriter networkStreamWriter = new NetworkStreamWriter(class6.server);
+            if (networkStreamWriter.SendKeyMessage())
             {
-                messageHandler.Action_3 = new Action<object>(class6.method_0);
+                networkStreamWriter.Action_3 = new Action<object>(class6.method_0);
                 class6.hasResumed = true;
-                messageHandler.SendAuthMessage(licenseKey, GetMachineIdentifier());
+                networkStreamWriter.SendAuthMessage(licenseKey, GetMachineIdentifier());
                 Thread.Sleep(-1);
                 return;
             }

@@ -9,16 +9,16 @@ public class WardenController
     public WardenController(ProcessMemoryHandler gclass14_1, Server server = null)
     {
         gclass14_0 = gclass14_1;
-        messageHandler = new MessageHandler(server);
-        gclass4_0 = new MemoryHandlerCommunicator(gclass14_1, messageHandler);
-        wardenScanner = new WardenScannerService(gclass14_1, messageHandler);
-        messageHandler.Action_0 = new Action(method_3);
+        networkStreamWriter = new NetworkStreamWriter(server);
+        gclass4_0 = new MemoryHandlerCommunicator(gclass14_1, networkStreamWriter);
+        wardenScanner = new WardenScannerService(gclass14_1, networkStreamWriter);
+        networkStreamWriter.Action_0 = new Action(method_3);
     }
 
     public void method_0(Action action_1)
     {
         string fileVersion = gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
-        messageHandler.SendClientRequestToolOffsetsMessage(fileVersion, action_1);
+        networkStreamWriter.SendClientRequestToolOffsetsMessage(fileVersion, action_1);
     }
 
     public void method_1(string punaniString, Action callback)
@@ -26,12 +26,12 @@ public class WardenController
         action_0 = callback;
         string fileVersion = gclass14_0.process.MainModule.FileVersionInfo.FileVersion;
         allocatedMemory = (ulong)gclass14_0.AllocateMemory(16384, MemoryProtectionFlags.PAGE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L).ToInt64();
-        messageHandler.SendClientRequestPayloadMessage(fileVersion, (ulong)gclass14_0.GetMainModuleBaseAddress(), allocatedMemory, punaniString, Directory.GetCurrentDirectory() + "\\", new Action(method_2));
+        networkStreamWriter.SendClientRequestPayloadMessage(fileVersion, (ulong)gclass14_0.GetMainModuleBaseAddress(), allocatedMemory, punaniString, Directory.GetCurrentDirectory() + "\\", new Action(method_2));
     }
 
     public void method_2()
     {
-        if (messageHandler.List_0 != null && messageHandler.Byte_0 != null)
+        if (networkStreamWriter.List_0 != null && networkStreamWriter.Byte_0 != null)
         {
             action_0();
         }
@@ -51,28 +51,28 @@ public class WardenController
             }
             byte[] chunk = new byte[num2];
             Array.Copy(moduleBytes, i, chunk, 0, num2);
-            messageHandler.WriteMemoryStreamToServer(MessageFactory.CreateClientUploadGameModuleMessageStream(fileVersion, chunk, moduleBytes.Length, i));
+            networkStreamWriter.WriteMemoryStreamToServer(MessageFactory.CreateClientUploadGameModuleMessageStream(fileVersion, chunk, moduleBytes.Length, i));
         }
     }
 
     public void method_4()
     {
-        MemoryHandlerCommunicator gclass = new MemoryHandlerCommunicator(gclass14_0, messageHandler);
+        MemoryHandlerCommunicator gclass = new MemoryHandlerCommunicator(gclass14_0, networkStreamWriter);
         gclass.method_0(GetMachineGUID());
     }
 
     public void method_5()
     {
-        GClass5 gclass = new GClass5(gclass14_0, messageHandler);
+        GClass5 gclass = new GClass5(gclass14_0, networkStreamWriter);
         gclass.method_1();
         gclass.method_0(allocatedMemory);
-        for (int i = 0; i < messageHandler.Byte_1.Length; i++)
+        for (int i = 0; i < networkStreamWriter.Byte_1.Length; i++)
         {
-            messageHandler.Byte_1[i] = 0;
+            networkStreamWriter.Byte_1[i] = 0;
         }
-        for (int j = 0; j < messageHandler.Byte_0.Length; j++)
+        for (int j = 0; j < networkStreamWriter.Byte_0.Length; j++)
         {
-            messageHandler.Byte_0[j] = 0;
+            networkStreamWriter.Byte_0[j] = 0;
         }
     }
 
@@ -89,7 +89,7 @@ public class WardenController
 
     public string method_9()
     {
-        return gclass14_0.method_9((IntPtr)(gclass14_0.GetMainModuleBaseAddress() + (long)messageHandler.List_0[46]), 32);
+        return gclass14_0.method_9((IntPtr)(gclass14_0.GetMainModuleBaseAddress() + (long)networkStreamWriter.List_0[46]), 32);
     }
 
     public void SuspendProcess()
@@ -132,7 +132,7 @@ public class WardenController
 
     private WardenScannerService wardenScanner;
 
-    private MessageHandler messageHandler;
+    private NetworkStreamWriter networkStreamWriter;
 
     private ulong allocatedMemory;
 
