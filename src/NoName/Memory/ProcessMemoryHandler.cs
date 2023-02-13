@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-// Token: 0x0200001E RID: 30
 public class ProcessMemoryHandler
 {
 	public Process process { get; set; }
@@ -16,7 +15,6 @@ public class ProcessMemoryHandler
 
 	public string FileVersion => this.process.MainModule.FileVersionInfo.FileVersion;
 
-	// Token: 0x06000171 RID: 369 RVA: 0x000029BE File Offset: 0x00000BBE
 	public ProcessMemoryHandler(Process process_1)
 	{
 		this.process = process_1;
@@ -35,26 +33,22 @@ public class ProcessMemoryHandler
 		this.WriteBytesToMemory(intPtr, array);
 	}
 
-	// Token: 0x06000173 RID: 371 RVA: 0x000029E5 File Offset: 0x00000BE5
 	public IntPtr OpenProcess(int accessRight)
 	{
 		return KernelAPI.OpenProcess(accessRight, false, process.Id);
 	}
 
-	// Token: 0x06000174 RID: 372 RVA: 0x000029F9 File Offset: 0x00000BF9
 	public bool CloseHandle(IntPtr handlePointer)
 	{
 		return KernelAPI.CloseHandle(handlePointer);
 	}
 
-	// Token: 0x06000175 RID: 373 RVA: 0x00004F78 File Offset: 0x00003178
 	public IntPtr method_3(IntPtr intptr_2)
 	{
 		IntPtr intPtr;
 		return KernelAPI.CreateRemoteThread(this.processHandle, IntPtr.Zero, 0U, intptr_2, IntPtr.Zero, 0, out intPtr);
 	}
 
-	// Token: 0x06000176 RID: 374 RVA: 0x00004FA0 File Offset: 0x000031A0
 	public byte[] method_4(long long_1, int int_0)
 	{
 		if (this.process.HasExited)
@@ -71,31 +65,26 @@ public class ProcessMemoryHandler
 		return array;
 	}
 
-	// Token: 0x06000177 RID: 375 RVA: 0x00002A01 File Offset: 0x00000C01
 	public byte[] method_5(IntPtr intptr_2, int int_0)
 	{
 		return this.method_4((long)intptr_2, int_0);
 	}
 
-	// Token: 0x06000178 RID: 376 RVA: 0x00002A10 File Offset: 0x00000C10
 	public long method_6(IntPtr intptr_2)
 	{
 		return BitConverter.ToInt64(this.method_4((long)intptr_2, 8), 0);
 	}
 
-	// Token: 0x06000179 RID: 377 RVA: 0x00002A20 File Offset: 0x00000C20
 	public float method_7(IntPtr intptr_2)
 	{
 		return BitConverter.ToSingle(this.method_4((long)intptr_2, 4), 0);
 	}
 
-	// Token: 0x0600017A RID: 378 RVA: 0x00002A30 File Offset: 0x00000C30
 	public void method_8(IntPtr intptr_2, ref byte[] byte_0)
 	{
 		byte_0 = this.method_4((long)intptr_2, byte_0.Length);
 	}
 
-	// Token: 0x0600017B RID: 379 RVA: 0x00004FF0 File Offset: 0x000031F0
 	public string method_9(IntPtr intptr_2, int int_0 = 32)
 	{
 		byte[] array = this.method_4((long)intptr_2, int_0);
