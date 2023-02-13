@@ -41,7 +41,7 @@
     <Compile Include="Warden\WardenController.cs" />
     <Compile Include="Message\BinaryMessageReader.cs" />
     <Compile Include="Message\MessageMemoryStream.cs" />
-    <Compile Include="Server.cs" />
+    <Compile Include="Network\Server.cs" />
     <Compile Include="Utils\KernelAPI.cs" />
     <Compile Include="Memory\ProcessMemoryHandler.cs" />
     <Compile Include="Network\NetworkStreamWriter.cs" />
