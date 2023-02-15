@@ -15,12 +15,12 @@ public class GClass5
 
 	public void method_0(ulong ulong_0)
 	{
-		StringBuilder stringBuilder = new StringBuilder(this.networkStreamWriter.Byte_1.Length);
-		for (int i = 0; i < this.networkStreamWriter.Byte_1.Length; i++)
+		StringBuilder stringBuilder = new StringBuilder(this.networkStreamWriter.LuaPayload.Length);
+		for (int i = 0; i < this.networkStreamWriter.LuaPayload.Length; i++)
 		{
-			stringBuilder.Append((char)this.networkStreamWriter.Byte_1[i]);
+			stringBuilder.Append((char)this.networkStreamWriter.LuaPayload[i]);
 		}
-		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)ulong_0), this.networkStreamWriter.Byte_1);
+		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)ulong_0), this.networkStreamWriter.LuaPayload);
 	}
 
 	public void method_1()
@@ -28,7 +28,7 @@ public class GClass5
 		GClass5.Class10 @class = new GClass5.Class10();
 		@class.gclass5_0 = this;
 		List<byte> list = new List<byte>();
-		list.AddRange(this.networkStreamWriter.Byte_0);
+		list.AddRange(this.networkStreamWriter.AuthPayload);
 		@class.ulong_0 = (ulong)(long)this.processMemoryHandler.AllocateMemory(list.Count, MemoryProtectionFlags.PAGE_EXECUTE_READWRITE, ProcessMemoryHandler.MemoryAllocationType.MEM_COMMIT, -1L);
 		this.processMemoryHandler.WriteBytesToMemory((IntPtr)((long)@class.ulong_0), list.ToArray());
 		@class.ulong_1 = (ulong)this.processMemoryHandler.GetMainModuleBaseAddress();

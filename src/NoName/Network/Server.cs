@@ -183,9 +183,9 @@ public class Server
 
     public List<ulong> list_1;
 
-    public byte[] byte_5;
+    public byte[] aPayload;
 
-    public byte[] byte_6;
+    public byte[] luaPayload;
 
     private static bool IsMessageHandlersSetup;
 
@@ -193,9 +193,9 @@ public class Server
 
     public ushort ushort_0;
 
-    public byte[] byte_7;
+    public byte[] authToken; // Generated for opened session, used in heartbeat mechanism.
 
-    public ushort ushort_1;
+    public ushort authStatusFlag;
 
     public Action action_1;
 

@@ -11,9 +11,9 @@ public class ServerMessageHandler
 
 	public static void HandleServerAuthStatusMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
-		server.ushort_1 = binaryReaderWrapper.ReadUInt16();
-		server.byte_7 = binaryReaderWrapper.ReadBytes(16);
-		new Thread(new ParameterizedThreadStart(server.action_7.Invoke)).Start(server.ushort_1);
+		server.authStatusFlag = binaryReaderWrapper.ReadUInt16();
+		server.authToken = binaryReaderWrapper.ReadBytes(16);
+		new Thread(new ParameterizedThreadStart(server.action_7.Invoke)).Start(server.authStatusFlag);
 	}
 
 	public static void HandleServerWardenUploadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
@@ -40,15 +40,12 @@ public class ServerMessageHandler
 
 	public static void HandleServerPayloadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{
-		int num = binaryReaderWrapper.ReadInt32();
-		server.byte_5 = binaryReaderWrapper.ReadBytes(num);
-		num = binaryReaderWrapper.ReadInt32();
-		server.byte_6 = binaryReaderWrapper.ReadBytes(num);
-		if (server.action_3 != null)
-		{
-			server.action_3();
-		}
-	}
+		int length = binaryReaderWrapper.ReadInt32();
+		server.aPayload = binaryReaderWrapper.ReadBytes(length);
+		length = binaryReaderWrapper.ReadInt32();
+		server.luaPayload = binaryReaderWrapper.ReadBytes(length);
+        server.action_3?.Invoke();
+    }
 
 	public static void HandleServerNeedlePayloadMessage(BinaryMessageReader binaryReaderWrapper, Server server)
 	{

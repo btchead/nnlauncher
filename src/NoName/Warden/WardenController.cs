@@ -31,7 +31,7 @@ public class WardenController
 
     public void method_2()
     {
-        if (networkStreamWriter.List_0 != null && networkStreamWriter.Byte_0 != null)
+        if (networkStreamWriter.List_0 != null && networkStreamWriter.AuthPayload != null)
         {
             action_0();
         }
@@ -66,13 +66,13 @@ public class WardenController
         GClass5 gclass = new GClass5(gclass14_0, networkStreamWriter);
         gclass.method_1();
         gclass.method_0(allocatedMemory);
-        for (int i = 0; i < networkStreamWriter.Byte_1.Length; i++)
+        for (int i = 0; i < networkStreamWriter.LuaPayload.Length; i++)
         {
-            networkStreamWriter.Byte_1[i] = 0;
+            networkStreamWriter.LuaPayload[i] = 0;
         }
-        for (int j = 0; j < networkStreamWriter.Byte_0.Length; j++)
+        for (int j = 0; j < networkStreamWriter.AuthPayload.Length; j++)
         {
-            networkStreamWriter.Byte_0[j] = 0;
+            networkStreamWriter.AuthPayload[j] = 0;
         }
     }
 

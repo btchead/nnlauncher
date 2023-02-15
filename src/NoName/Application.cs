@@ -68,16 +68,16 @@ internal class Application
                 Process process = Process.GetProcessById(processID);
                 if (!process.HasExited)
                 {
-                Logger.Info("Force killing process: PID " + processID);
+                    Logger.Info("Force killing process: PID " + processID);
                     process.Kill();
                 }
-            }
+        }
     }
 
     private static void ConnectionLossRoutine()
     {
         Logger.Error("Connection to the server was lost!");
-            KillProcesses();
+        KillProcesses();
         Process.GetCurrentProcess().Kill();
     }
 

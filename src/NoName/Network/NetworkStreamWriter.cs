@@ -104,11 +104,11 @@ public class NetworkStreamWriter
     private Server server;
     
     [Obsolete("This field is never used in original source")]
-    public ushort UInt16_0 => server.ushort_1;
+    public ushort AuthStatusFlag => server.authStatusFlag;
     
     public List<ulong> List_0 => server.list_1;
     
-    public byte[] Byte_0 => server.byte_5;
+    public byte[] AuthPayload => server.aPayload;
 
-    public byte[] Byte_1 => server.byte_6;
+    public byte[] LuaPayload => server.luaPayload;
 }
