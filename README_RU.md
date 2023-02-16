@@ -4,4 +4,4 @@
 
 ## Wiki
 
-- [[RU] LuaPayload](/docs/RU/LuaPayload_RU.md)
+- [[RU] LuaPayload](/docs/RU/LuaPayload.md)
