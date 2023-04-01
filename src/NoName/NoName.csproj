@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <ProjectGuid>{2BFABCF5-7073-41AF-AF85-1C964F5CB2C9}</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>$(SolutionDir)\artifacts\x64\Debug</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>$(SolutionDir)\artifacts\x64\Release</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>none</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="Utils\Crypto.cs" />
+    <Compile Include="Warden\WardenController.cs" />
+    <Compile Include="Message\BinaryMessageReader.cs" />
+    <Compile Include="Message\MessageMemoryStream.cs" />
+    <Compile Include="Network\Server.cs" />
+    <Compile Include="Utils\KernelAPI.cs" />
+    <Compile Include="Memory\ProcessMemoryHandler.cs" />
+    <Compile Include="Network\NetworkStreamWriter.cs" />
+    <Compile Include="Warden\WardenScannerService.cs" />
+    <Compile Include="Memory\MemoryHandlerCommunicator.cs" />
+    <Compile Include="GClass5.cs" />
+    <Compile Include="Message\ServerMessageHandler.cs" />
+    <Compile Include="Message\MessageFactory.cs" />
+    <Compile Include="Message\MessageHandlerSetup.cs" />
+    <Compile Include="Message\MessageProcessor.cs" />
+    <Compile Include="Message\ClientServerMessageFlags.cs" />
+    <Compile Include="Utils\LuaFunctions.cs" />
+    <Compile Include="Memory\ThreadAccessFlags.cs" />
+    <Compile Include="Memory\MemoryProtectionFlags.cs" />
+    <Compile Include="Message\MessageHeaderStruct.cs" />
+    <Compile Include="Memory\MemoryBasicInformation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Serilog">
+      <Version>2.12.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.Debug">
+      <Version>2.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

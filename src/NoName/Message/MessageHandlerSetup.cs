@@ -1,0 +1,17 @@
+﻿public class MessageHandlerSetup
+{
+	public static void SetupMessageHandlers()
+	{
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_AUTH_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerAuthStatusMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_KEY_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerKeyMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_BROADCAST, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerBroadcastMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_WARDEN_UPLOAD_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerWardenUploadMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_OFFSETS_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerOffsetsMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_APAYLOAD_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerPayloadMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_UPLOAD_GAMEMODULE_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerRequestGameModuleMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_NEEDLE_PAYLOAD_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerNeedlePayloadMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_HOOK_PAYLOAD_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerHookPayloadMessage));
+		MessageProcessor.RegisterMessageHandler(ClientServerMessageFlags.SMSG_TOOL_OFFSETS_RESPONSE, new MessageProcessor.MessageHandlerDelegate(ServerMessageHandler.HandleServerToolOffsetsMessage));
+	}
+}
+	
